@@ -19,6 +19,8 @@ public interface UserMapper {
      *
      * @param user
      * @throws SQLException
+     * @author mq_xu
+     * @date 2019.12.1
      */
     @Insert("INSERT INTO t_user VALUES (null,#{mobile},#{password},#{nickname},#{avatar},#{createTime}) ")
     void insertUser(User user) throws SQLException;
@@ -29,7 +31,10 @@ public interface UserMapper {
      * @param mobile
      * @return User
      * @throws SQLException
+     * @author mq_xu
+     * @date 2019.12.1
      */
     @Select("SELECT * FROM t_user WHERE mobile = #{mobile}")
     User findUserByMobile(String mobile) throws SQLException;
+
 }
