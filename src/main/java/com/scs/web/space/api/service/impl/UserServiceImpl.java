@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @ClassName UserServiceImpl
@@ -54,5 +55,21 @@ public class UserServiceImpl implements UserService {
             }
         }
         return Result.success();
+    }
+
+    @Override
+    public Result selectAll() {
+        List<User> userList = null;
+        try {
+            userList = userMapper.selectAll();
+        } catch (SQLException e) {
+            logger.error("查询所有用户出现异常");
+        }
+
+        if (userList != null) {
+            return Result.success(userList);
+        } else {
+            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+        }
     }
 }
