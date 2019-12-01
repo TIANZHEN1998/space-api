@@ -24,4 +24,9 @@ public class UserController {
         //客户端发送JSON参数，后端使用@RequstBody接收,注意要用Post方法
         return userService.signUp(userDto);
     }
+
+    @GetMapping(value = "/list")
+    Result getAll() {
+        return userService.selectAll();
+    }
 }

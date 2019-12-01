@@ -13,8 +13,19 @@ public interface UserService {
 
     /**
      * 用户注册功能
+     *
      * @param dto
      * @return Result
      */
     Result signUp(UserDto dto);
+
+
+    /**
+     * 查询所有用户
+     *
+     * @return Result
+     * @author mq_xu
+     * @date 2019.12.1
+     */
+    Result selectAll();
 }

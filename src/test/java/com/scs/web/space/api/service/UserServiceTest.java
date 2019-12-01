@@ -24,4 +24,10 @@ class UserServiceTest {
         assertEquals(1,result.getCode());
 //        System.out.println(result);
     }
+
+    @Test
+    void selectAll() {
+        Result result = userService.selectAll();
+        System.out.println(result.getData());
+    }
 }
