@@ -3,8 +3,10 @@ package com.scs.web.space.api.mapper;
 import com.scs.web.space.api.domain.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.jdbc.SQL;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @ClassName UserMapper
@@ -32,4 +34,12 @@ public interface UserMapper {
      */
     @Select("SELECT * FROM t_user WHERE mobile = #{mobile}")
     User findUserByMobile(String mobile) throws SQLException;
+
+    /**
+     * 查询用户表所有用户
+     * @return
+     * @throws SQLException
+     */
+    @Select("SELECT * FROM t_user ")
+    List<User> selectAll() throws SQLException;
 }

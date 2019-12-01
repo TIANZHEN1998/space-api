@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,5 +30,11 @@ class UserMapperTest {
     void findUserByMobile() throws SQLException {
         User user = userMapper.findUserByMobile("13977778888");
         assertNotNull(user);
+    }
+
+    @Test
+    void selectAll() throws SQLException{
+        List<User> users = userMapper.selectAll();
+        users.forEach(a-> System.out.println(a));
     }
 }
