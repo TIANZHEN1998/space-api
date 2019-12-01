@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
+/**
+ * @ClassName AlbumController
+ * @Description 相册控制层
+ * @Author wf
+ * @Date 2019/12/1
+ **/
 @RestController
 @RequestMapping(value = "/api/album")
 public class AlbumController {

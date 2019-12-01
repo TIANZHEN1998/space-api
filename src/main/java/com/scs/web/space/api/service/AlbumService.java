@@ -3,6 +3,13 @@ package com.scs.web.space.api.service;
 import com.scs.web.space.api.domain.dto.AlbumDto;
 import com.scs.web.space.api.util.Result;
 
+
+/**
+ * @ClassName AlbumService
+ * @Description 相册服务接口
+ * @Author wf
+ * @Date 2019/12/1
+ **/
 public interface AlbumService {
     /**
      * 新增相册

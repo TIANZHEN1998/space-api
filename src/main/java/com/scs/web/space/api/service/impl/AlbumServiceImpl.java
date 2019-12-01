@@ -16,6 +16,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @ClassName AlbumServiceImpl
+ * @Description TODO
+ * @Author wf
+ * @Date 2019/12/1
+ **/
 @Service
 public class AlbumServiceImpl implements AlbumService {
     private Logger logger = LoggerFactory.getLogger(AlbumServiceImpl.class);
