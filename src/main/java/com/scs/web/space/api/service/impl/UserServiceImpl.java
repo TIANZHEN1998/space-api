@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,9 +66,50 @@ public class UserServiceImpl implements UserService {
         } catch (SQLException e) {
             logger.error("查询所有用户出现异常");
         }
-
         if (userList != null) {
             return Result.success(userList);
+        } else {
+            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+        }
+    }
+
+    @Override
+    public Result batchInsert(UserDto dto) {
+        int n = 0;
+        List<User> userList = new ArrayList<>();
+        try {
+            for (int i = 0; i < 3; i++) {
+                User user = new User();
+                user.setMobile(String.valueOf(i));
+                user.setPassword(dto.getPassword());
+                user.setNickname("新用户");
+                user.setAvatar("https://www.jianshu.com/u/822585e5c69a");
+                user.setCreateTime(LocalDateTime.now());
+                userList.add(user);
+            }
+            n = userMapper.batchInsert(userList);
+        } catch (SQLException e) {
+            logger.error("批量新增用户出现异常");
+        }
+        if (n != 0) {
+            return Result.success();
+        } else {
+            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+        }
+    }
+
+    @Override
+    public Result batchDelete(int id) {
+        int n=0;
+        List<User> userList=new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            User user = new User();
+            user.setId(i+27);
+            userList.add(user);
+        }
+        n = userMapper.batchDelete(userList);
+        if (n != 0) {
+            return Result.success();
         } else {
             return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
         }
