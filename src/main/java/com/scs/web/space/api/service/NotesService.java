@@ -15,19 +15,44 @@ import java.util.List;
  **/
 public interface NotesService {
     /**
-     * 日志详情页
+     * 用户所有日志列表
      * @param id
-     * @return
+     * @return Result
      */
     Result getByUserId(int id);
 
+    /**
+     * 日志详情
+     * @param id
+     * @return Result
+     */
     Result getNotesById(int id);
 
+    /**
+     * 新增日志
+     * @param notesDto
+     * @return Result
+     */
     Result insertNotes(NotesDto notesDto);
 
+    /**
+     * 更新指定id日志
+     * @param notesDto
+     * @return Result
+     */
     Result updateNotes(NotesDto notesDto);
 
+    /**
+     * 删除指定id的日志
+     * @param id
+     * @return Result
+     */
     Result deleteById(int id);
 
+    /**
+     * 批量删除日志
+     * @param list
+     * @return Result
+     */
     Result batchDelete(List<Notes> list);
 }
