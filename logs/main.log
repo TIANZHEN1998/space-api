@@ -1,3 +1,42 @@
-2019-12-01.22:03:35 INFO  [restartedMain] com.scs.web.space.api.SpaceApiApplication.logStarting:55  Starting SpaceApiApplication on taoranran with PID 17464 (F:\space-dev\space-api\target\classes started by mqxu in F:\space-dev\space-api)
-2019-12-01.22:03:35 INFO  [restartedMain] com.scs.web.space.api.SpaceApiApplication.logStartupProfileInfo:651  No active profile set, falling back to default profiles: default
-2019-12-01.22:03:38 INFO  [restartedMain] com.scs.web.space.api.SpaceApiApplication.logStarted:61  Started SpaceApiApplication in 3.915 seconds (JVM running for 5.993)
+2019-12-03.08:10:18 INFO  [main] com.scs.web.space.api.mapper.NotesMapperTest.logStarting:55  Starting NotesMapperTest on taoranran with PID 10160 (started by mqxu in F:\space-dev\space-api)
+2019-12-03.08:10:18 INFO  [main] com.scs.web.space.api.mapper.NotesMapperTest.logStartupProfileInfo:651  No active profile set, falling back to default profiles: default
+2019-12-03.08:10:26 INFO  [main] com.scs.web.space.api.mapper.NotesMapperTest.logStarted:61  Started NotesMapperTest in 9.362 seconds (JVM running for 13.325)
+2019-12-03.08:11:48 INFO  [main] com.scs.web.space.api.mapper.NotesMapperTest.logStarting:55  Starting NotesMapperTest on taoranran with PID 9904 (started by mqxu in F:\space-dev\space-api)
+2019-12-03.08:11:48 INFO  [main] com.scs.web.space.api.mapper.NotesMapperTest.logStartupProfileInfo:651  No active profile set, falling back to default profiles: default
+2019-12-03.08:11:57 INFO  [main] com.scs.web.space.api.mapper.NotesMapperTest.logStarted:61  Started NotesMapperTest in 9.707 seconds (JVM running for 12.553)
+2019-12-03.08:12:56 INFO  [main] com.scs.web.space.api.mapper.NotesMapperTest.logStarting:55  Starting NotesMapperTest on taoranran with PID 220 (started by mqxu in F:\space-dev\space-api)
+2019-12-03.08:12:56 INFO  [main] com.scs.web.space.api.mapper.NotesMapperTest.logStartupProfileInfo:651  No active profile set, falling back to default profiles: default
+2019-12-03.08:13:05 INFO  [main] com.scs.web.space.api.mapper.NotesMapperTest.logStarted:61  Started NotesMapperTest in 10.177 seconds (JVM running for 13.167)
+2019-12-03.08:18:39 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarting:55  Starting UserMapperTest on taoranran with PID 3692 (started by mqxu in F:\space-dev\space-api)
+2019-12-03.08:18:39 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStartupProfileInfo:651  No active profile set, falling back to default profiles: default
+2019-12-03.08:18:45 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarted:61  Started UserMapperTest in 7.625 seconds (JVM running for 10.214)
+2019-12-03.08:19:37 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarting:55  Starting UserMapperTest on taoranran with PID 8888 (started by mqxu in F:\space-dev\space-api)
+2019-12-03.08:19:37 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStartupProfileInfo:651  No active profile set, falling back to default profiles: default
+2019-12-03.08:19:44 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarted:61  Started UserMapperTest in 7.701 seconds (JVM running for 10.528)
+2019-12-03.08:21:02 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarting:55  Starting UserMapperTest on taoranran with PID 6560 (started by mqxu in F:\space-dev\space-api)
+2019-12-03.08:21:02 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStartupProfileInfo:651  No active profile set, falling back to default profiles: default
+2019-12-03.08:21:09 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarted:61  Started UserMapperTest in 7.775 seconds (JVM running for 10.959)
+2019-12-03.08:21:47 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarting:55  Starting UserMapperTest on taoranran with PID 11648 (started by mqxu in F:\space-dev\space-api)
+2019-12-03.08:21:47 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStartupProfileInfo:651  No active profile set, falling back to default profiles: default
+2019-12-03.08:21:54 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarted:61  Started UserMapperTest in 7.743 seconds (JVM running for 10.171)
+2019-12-03.08:22:48 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarting:55  Starting UserMapperTest on taoranran with PID 9876 (started by mqxu in F:\space-dev\space-api)
+2019-12-03.08:22:48 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStartupProfileInfo:651  No active profile set, falling back to default profiles: default
+2019-12-03.08:22:56 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarted:61  Started UserMapperTest in 9.307 seconds (JVM running for 11.906)
+2019-12-03.08:26:45 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarting:55  Starting UserMapperTest on taoranran with PID 1380 (started by mqxu in F:\space-dev\space-api)
+2019-12-03.08:26:45 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStartupProfileInfo:651  No active profile set, falling back to default profiles: default
+2019-12-03.08:26:54 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarted:61  Started UserMapperTest in 10.164 seconds (JVM running for 15.053)
+2019-12-03.08:28:02 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarting:55  Starting UserMapperTest on taoranran with PID 8624 (started by mqxu in F:\space-dev\space-api)
+2019-12-03.08:28:02 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStartupProfileInfo:651  No active profile set, falling back to default profiles: default
+2019-12-03.08:28:14 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarted:61  Started UserMapperTest in 12.186 seconds (JVM running for 15.971)
+2019-12-03.08:30:26 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarting:55  Starting UserMapperTest on taoranran with PID 7012 (started by mqxu in F:\space-dev\space-api)
+2019-12-03.08:30:26 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStartupProfileInfo:651  No active profile set, falling back to default profiles: default
+2019-12-03.08:30:33 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarted:61  Started UserMapperTest in 8.194 seconds (JVM running for 10.692)
+2019-12-03.08:31:29 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarting:55  Starting UserMapperTest on taoranran with PID 2076 (started by mqxu in F:\space-dev\space-api)
+2019-12-03.08:31:29 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStartupProfileInfo:651  No active profile set, falling back to default profiles: default
+2019-12-03.08:31:37 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarted:61  Started UserMapperTest in 9.33 seconds (JVM running for 11.705)
+2019-12-03.08:32:46 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarting:55  Starting UserMapperTest on taoranran with PID 6260 (started by mqxu in F:\space-dev\space-api)
+2019-12-03.08:32:46 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStartupProfileInfo:651  No active profile set, falling back to default profiles: default
+2019-12-03.08:32:53 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarted:61  Started UserMapperTest in 8.753 seconds (JVM running for 11.704)
+2019-12-03.08:39:18 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarting:55  Starting UserMapperTest on taoranran with PID 6952 (started by mqxu in F:\space-dev\space-api)
+2019-12-03.08:39:18 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStartupProfileInfo:651  No active profile set, falling back to default profiles: default
+2019-12-03.08:39:26 INFO  [main] com.scs.web.space.api.mapper.UserMapperTest.logStarted:61  Started UserMapperTest in 9.354 seconds (JVM running for 12.112)
