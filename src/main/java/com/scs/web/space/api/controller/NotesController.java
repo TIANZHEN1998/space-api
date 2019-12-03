@@ -19,13 +19,12 @@ public class NotesController {
     @Resource
     private NotesService notesService;
 
-    @GetMapping(value = " ")
-    Result getByUserId(@RequestParam int id){
+    @GetMapping(value = "/user/{id}")
+    Result getNotesByUserId(@PathVariable int id){
         return notesService.getByUserId(id);
     }
 
     @GetMapping(value = "/{id}")
-
     Result getById(@PathVariable int id){
         return notesService.getNotesById(id);
     }

@@ -77,4 +77,20 @@ public class UserServiceImpl implements UserService {
             return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
         }
     }
+
+    @Override
+    public Result getUserById(int id) {
+        User user = null;
+        try {
+            user = userMapper.getUserById(id);
+        } catch (SQLException e) {
+            logger.error("根据id查询用户出现异常");
+        }
+
+        if (user != null) {
+            return Result.success(user);
+        } else {
+            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+        }
+    }
 }

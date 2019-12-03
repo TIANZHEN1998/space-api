@@ -21,7 +21,7 @@ class UserServiceTest {
         userDto.setMobile("1389999000");
         userDto.setPassword("698d51a19d8a121ce581499d7b701668");
         Result result = userService.signUp(userDto);
-        assertEquals(1,result.getCode());
+        assertEquals(1, result.getCode());
 //        System.out.println(result);
     }
 
@@ -29,5 +29,11 @@ class UserServiceTest {
     void selectAll() {
         Result result = userService.selectAll();
         System.out.println(result.getData());
+    }
+
+    @Test
+    void getUserById() {
+        Result result = userService.getUserById(10);
+        System.out.println(result.getCode() + "  " + result.getMsg() + result.getData());
     }
 }

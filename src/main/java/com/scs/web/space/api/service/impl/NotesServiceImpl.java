@@ -2,6 +2,7 @@ package com.scs.web.space.api.service.impl;
 
 import com.scs.web.space.api.domain.dto.NotesDto;
 import com.scs.web.space.api.domain.entity.Notes;
+import com.scs.web.space.api.domain.entity.User;
 import com.scs.web.space.api.mapper.NotesMapper;
 import com.scs.web.space.api.service.NotesService;
 import com.scs.web.space.api.util.Result;
@@ -117,5 +118,21 @@ public class NotesServiceImpl implements NotesService {
     @Override
     public Result batchDelete(List<Notes> list) {
         return null;
+    }
+
+    @Override
+    public Result selectNotesByUserId(int userId) {
+        List<Notes> notesList = null;
+        try {
+            notesList = notesMapper.selectNotesByUserId(userId);
+        } catch (SQLException e) {
+            logger.error("根据用户id查询所有日志出现异常");
+        }
+
+        if (notesList != null) {
+            return Result.success(notesList);
+        } else {
+            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+        }
     }
 }
