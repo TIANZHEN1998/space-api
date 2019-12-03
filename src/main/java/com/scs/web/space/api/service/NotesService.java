@@ -2,6 +2,7 @@ package com.scs.web.space.api.service;
 
 
 import com.scs.web.space.api.domain.dto.NotesDto;
+import com.scs.web.space.api.domain.dto.Page;
 import com.scs.web.space.api.domain.entity.Notes;
 import com.scs.web.space.api.util.Result;
 
@@ -16,10 +17,16 @@ import java.util.List;
 public interface NotesService {
     /**
      * 用户所有日志列表
-     * @param id
+     * @param currentPage, pageSize
      * @return Result
      */
-    Result getByUserId(int id);
+    Result getByUserId(int userId, int currentPage, int pageSize);
+
+    /**
+     * 查询所有日志
+     * @return
+     */
+    Result getAllNotes();
 
     /**
      * 日志详情

@@ -1,11 +1,15 @@
 package com.scs.web.space.api.service.impl;
 
 import com.scs.web.space.api.domain.dto.NotesDto;
+import com.scs.web.space.api.domain.entity.Friend;
 import com.scs.web.space.api.domain.entity.Notes;
+import com.scs.web.space.api.domain.entity.User;
+import com.scs.web.space.api.mapper.FriendMapper;
 import com.scs.web.space.api.mapper.NotesMapper;
 import com.scs.web.space.api.service.NotesService;
 import com.scs.web.space.api.util.Result;
 import com.scs.web.space.api.util.ResultCode;
+import org.apache.ibatis.annotations.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -31,19 +35,62 @@ public class NotesServiceImpl implements NotesService {
 
     @Resource
     private NotesMapper notesMapper;
+    private FriendMapper friendMapper;
 
     @Override
-    public Result getByUserId(int id) {
-        List<Map> map = new ArrayList<Map>();
+    public Result getByUserId(int userId, int currentPage, int pageSize) {
+        List<Map> map = new ArrayList<>();
         try {
-            map = notesMapper.getByUserId(id);
+            map = notesMapper.getByUserId(userId,currentPage, pageSize);
         } catch (SQLException e) {
             logger.error("获取用户日志异常");
         }
+        System.out.println(map.size());
+        List<Map> mapList = new ArrayList<>();
         if(map != null){
-            return Result.success(map);
+            for(int i =0; i < map.size(); i++){
+                String accessStatus = map.get(i).get("accessStatus").toString();
+                System.out.println(accessStatus);
+                switch (accessStatus){
+                    case "0" :
+                        break;
+                    case "1" :
+                        /*如果是好友*/
+                        User friend = new User();
+                        try {
+                            friend = friendMapper.getFriend("fds",(long)123);
+                        } catch (SQLException e) {
+                            logger.error("好友验证出错");
+                        }
+
+                        if(friend !=null) {
+                            mapList.add(map.get(i));
+                            System.out.println(mapList);
+                            break;
+                        }
+                       break;
+                    default:
+                       mapList.add(map.get(i));
+                       break;
+                }
+            }
+            return Result.success(mapList);
         }
         return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+    }
+
+    @Override
+    public Result getAllNotes() {
+        List<Notes> notesList = new ArrayList<>();
+        try {
+            notesList = notesMapper.getAllNotes();
+        } catch (SQLException e) {
+            logger.error("查询所有日志异常");
+        }
+         if(notesList != null){
+             return Result.success(notesList);
+         }
+         return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.scs.web.space.api.mapper;
 
+import com.scs.web.space.api.domain.dto.Page;
 import com.scs.web.space.api.domain.entity.Notes;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.jdbc.SQL;
 
 import java.sql.SQLException;
 import java.text.MessageFormat;
@@ -38,8 +40,9 @@ public interface NotesMapper {
     @Select("SELECT t1.*,t2.nickname,t2.avatar FROM t_notes t1 " +
             " LEFT JOIN t_user t2 " +
             "ON t1.user_id = t2.id " +
-            "WHERE user_id = #{id}")
-    List<Map> getByUserId(int id) throws SQLException;
+            "WHERE user_id = #{userId} " +
+            "LIMIT ${pageSize*(currentPage-1)},#{pageSize}")
+    List<Map> getByUserId(int userId,int currentPage, int pageSize) throws SQLException;
 
     /**
      * 查询日志详情
@@ -53,6 +56,15 @@ public interface NotesMapper {
             "ON t1.user_id = t2.id " +
             "WHERE t1.id = #{id} ")
     Map getNotesById(int id) throws SQLException;
+
+
+    /**
+     * 查询所有用户所有的日志
+     * @return List<notes>
+     * @throws SQLException
+     */
+    @Select("SELECT * FROM t_notes ORDER BY create_time ASC")
+    List<Notes> getAllNotes() throws SQLException;
 
     /**
      * 新增日志信息
@@ -73,7 +85,7 @@ public interface NotesMapper {
     int batchInsert(List<Notes> logs);
 
     /**
-     * 根据日志id跟新日志信息
+     * 根据日志id更新新日志信息
      * @param log
      * @return int
      * @throws SQLException
