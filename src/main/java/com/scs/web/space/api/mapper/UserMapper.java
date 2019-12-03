@@ -48,8 +48,6 @@ public interface UserMapper {
     @Select("SELECT * FROM t_user WHERE id = #{id} ")
     @Results({
             @Result(property = "id",column = "id"),
-            @Result(property = "styleId",column = "style_id"),
-            @Result(property = "createTime",column = "create_time"),
             @Result(property = "notesList", column = "id",
                     many = @Many(select = "com.scs.web.space.api.mapper.NotesMapper.selectNotesByUserId"))
     })

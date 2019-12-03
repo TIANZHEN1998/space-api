@@ -138,6 +138,5 @@ public interface NotesMapper {
      * @throws SQLException
      */
     @Select("SELECT * FROM t_notes  WHERE user_id = #{userId} ")
-    @ResultMap("notes")
-    List<Map> selectNotesByUserId(@Param("userId") int userId)throws SQLException;
+    List<Notes> selectNotesByUserId(@Param("userId") int userId)throws SQLException;
 }

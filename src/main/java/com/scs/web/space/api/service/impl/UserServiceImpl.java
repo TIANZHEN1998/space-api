@@ -49,10 +49,10 @@ public class UserServiceImpl implements UserService {
                 user1.setNickname("新用户");
                 user1.setAvatar("https://www.jianshu.com/u/822585e5c69a");
                 user1.setIntroduction("新的注册用户");
-                user1.setStyleId(1);
+//                user1.setStyleId(1);
                 user1.setPermission((short) 1);
                 user1.setStatus((short) 1);
-                user1.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
+//                user1.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
                 userMapper.insertUser(user1);
             } catch (SQLException e) {
                 logger.error("新增用户出现异常");

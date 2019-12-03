@@ -47,7 +47,7 @@ class NotesMapperTest {
 
     @Test
     void selectNotesByUserId() throws SQLException {
-        List<Map> notes = notesMapper.selectNotesByUserId(1);
+        List<Notes> notes = notesMapper.selectNotesByUserId(1);
         notes.forEach(System.out::println);
     }
 }
