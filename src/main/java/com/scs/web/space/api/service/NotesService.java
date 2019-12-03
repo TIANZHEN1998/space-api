@@ -62,4 +62,7 @@ public interface NotesService {
      * @return Result
      */
     Result batchDelete(List<Notes> list);
+
+
+    Result selectNotesByUserId(int userId);
 }

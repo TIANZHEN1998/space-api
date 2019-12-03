@@ -22,16 +22,16 @@ public interface AlbumMapper {
      * @return int
      * @throws SQLException
      */
-    @Insert("INSERT INTO t_album VALUES (null,#{userId},#{name},#{cover},#{createTime})" )
-    int insertAlbum(Album album) throws SQLException;
+    @Insert("INSERT INTO t_album VALUES (null,#{userId},#{name},#{cover},#{createTime}) " )
+    void insert(Album album) throws SQLException;
 
     /**
      * 按创建时间升序查询所有相册
      * @return List<album>
      * @throws SQLException
      */
-    @Select("SELECT * FROM t_album ORDER BY create_time ASC")
-    List<Album> getAlbum() throws SQLException;
+    @Select("SELECT * FROM t_album ORDER BY create_time ASC ")
+    List<Album> selectAll() throws SQLException;
 
     /**
      * 根据相册id删除相册记录
@@ -39,8 +39,8 @@ public interface AlbumMapper {
      * @return int
      * @throws SQLException
      */
-    @Delete("DELETE FROM t_album WHERE id = #{id}")
-    int deleteByName(int id) throws SQLException;
+    @Delete("DELETE FROM t_album WHERE id = #{id} ")
+    void delete(int id) throws SQLException;
 
     /**
      * 根据用户id得到该用户所有相册记录
@@ -48,6 +48,6 @@ public interface AlbumMapper {
      * @return List<Album>
      * @throws SQLException
      */
-    @Select("SELECT * FROM t_album WHERE user_id = #{userId}")
-    List<Album> getByUserId(long userId) throws SQLException;
+    @Select("SELECT * FROM t_album WHERE user_id = #{userId} ")
+    List<Album> selectByUserId(int userId) throws SQLException;
 }

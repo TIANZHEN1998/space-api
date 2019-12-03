@@ -4,12 +4,6 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-/**
- * @author wf
- * @ClassName Friend
- * @Description TODO
- * @Date 2019/12/2
- */
 @Data
 public class Friend {
     private Integer id;

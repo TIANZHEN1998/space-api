@@ -1,6 +1,6 @@
 package com.scs.web.space.api.service;
 
-import com.scs.web.space.api.domain.dto.AlbumDto;
+import com.scs.web.space.api.domain.entity.Album;
 import com.scs.web.space.api.util.Result;
 
 
@@ -13,30 +13,29 @@ import com.scs.web.space.api.util.Result;
 public interface AlbumService {
     /**
      * 新增相册
-     * @param albumDto
+     * @param album
      * @return
      */
-    Result insertAlbum(AlbumDto albumDto);
+    Result insert(Album album);
 
     /**
      * 查询所有相册
      * @return
      */
-    Result getAlbum();
+    Result selectAll();
 
-    Result getAccountByUserId(long id);
 
     /**
      * 查询个人所有相册
      * @param id
      * @return
      */
-    Result getByUserId(long id);
+    Result selectByUserId(int id);
 
     /**
      * 删除相册
      * @param id
      * @return
      */
-    Result deleteByName(int id);
+    Result delete(int id);
 }

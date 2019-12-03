@@ -142,4 +142,13 @@ public interface NotesMapper {
             return sb.toString();
         }
     }
+
+    /**
+     * 根据用户id查询所有日志
+     * @param userId
+     * @return
+     * @throws SQLException
+     */
+    @Select("SELECT * FROM t_notes  WHERE user_id = #{userId} ")
+    List<Notes> selectNotesByUserId(@Param("userId") int userId)throws SQLException;
 }

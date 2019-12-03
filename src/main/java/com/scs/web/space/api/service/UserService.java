@@ -28,4 +28,12 @@ public interface UserService {
      * @date 2019.12.1
      */
     Result selectAll();
+
+    /**
+     * 根据id查询用户
+     * @param id
+     * @author taoyongxin
+     * @return Result
+     */
+    Result getUserById(int id);
 }
