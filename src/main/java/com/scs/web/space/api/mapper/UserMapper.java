@@ -1,9 +1,7 @@
 package com.scs.web.space.api.mapper;
 
 import com.scs.web.space.api.domain.entity.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.jdbc.SQL;
+import org.apache.ibatis.annotations.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -41,6 +39,21 @@ public interface UserMapper {
 
 
     /**
+     * 根据id查询用户信息，通过一对多查询，级联查出该用户所有日志
+     * @param id
+     * @return
+     * @throws SQLException
+     */
+
+    @Select("SELECT * FROM t_user WHERE id = #{id} ")
+    @Results({
+            @Result(property = "id",column = "id"),
+            @Result(property = "notesList", column = "id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.NotesMapper.selectNotesByUserId"))
+    })
+    User getUserById(@Param("id")int id)throws SQLException;
+
+    /**
      * 查询用户表所有用户
      *
      * @return
@@ -48,4 +61,5 @@ public interface UserMapper {
      */
     @Select("SELECT * FROM t_user ")
     List<User> selectAll() throws SQLException;
+
 }

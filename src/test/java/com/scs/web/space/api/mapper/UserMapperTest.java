@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.annotation.Resource;
 
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,8 +32,14 @@ class UserMapperTest {
     }
 
     @Test
-    void selectAll() throws SQLException{
+    void selectAll() throws SQLException {
         List<User> users = userMapper.selectAll();
         users.forEach(System.out::println);
+    }
+
+    @Test
+    void getUserById() throws SQLException {
+        User user = userMapper.getUserById(1);
+        System.out.println(user);
     }
 }
