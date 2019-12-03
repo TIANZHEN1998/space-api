@@ -22,6 +22,6 @@ public class Notes {
     private Integer forwards;
     private Integer editStatus;
     private Integer accessStatus;
-    private Integer forwardStatus;
+    private Short forwardStatus;
     private Timestamp createTime;
 }

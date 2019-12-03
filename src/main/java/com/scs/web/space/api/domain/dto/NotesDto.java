@@ -16,5 +16,5 @@ public class NotesDto {
     private String content;
     private Integer editStatus;
     private Integer accessStatus;
-    private Integer forwardStatus;
+    private Short forwardStatus;
 }

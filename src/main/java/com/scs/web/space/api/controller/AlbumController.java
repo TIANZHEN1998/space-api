@@ -1,9 +1,8 @@
 package com.scs.web.space.api.controller;
 
-import com.scs.web.space.api.domain.dto.AlbumDto;
+import com.scs.web.space.api.domain.entity.Album;
 import com.scs.web.space.api.service.AlbumService;
 import com.scs.web.space.api.util.Result;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,28 +19,25 @@ public class AlbumController {
     @Resource
     private AlbumService albumService;
 
-    @GetMapping(value = "/list")
-    Result getAlbum(){
-        return albumService.getAlbum();
+    @GetMapping(value = "/")
+    Result selectAll() {
+        return albumService.selectAll();
+    }
+
+
+    @PostMapping(value = "/")
+    Result insertAlbum(@RequestBody Album album) {
+        return albumService.insert(album);
     }
 
     @GetMapping(value = "/{id}")
-    Result getByUserId(@PathVariable long id){
-        return albumService.getByUserId(id);
+    Result selectByUserId(@PathVariable int id) {
+        return albumService.selectByUserId(id);
     }
 
-    @DeleteMapping(value = "/delete")
-    Result deleteById(@RequestParam(name = "id") int id){
-        return albumService.deleteByName(id);
+    @DeleteMapping(value = "/{id}")
+    Result delete(@PathVariable int id) {
+        return albumService.delete(id);
     }
 
-    @PostMapping(value = "/insert")
-    Result insertAlbum(@RequestBody AlbumDto albumDto){
-        return albumService.insertAlbum(albumDto);
-    }
-
-    @GetMapping(value = "/account/{id}")
-    Result getAccountByUserId(@PathVariable long id){
-        return albumService.getAccountByUserId(id);
-    }
 }

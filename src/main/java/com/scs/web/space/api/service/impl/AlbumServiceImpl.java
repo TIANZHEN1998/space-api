@@ -1,6 +1,5 @@
 package com.scs.web.space.api.service.impl;
 
-import com.scs.web.space.api.domain.dto.AlbumDto;
 import com.scs.web.space.api.domain.entity.Album;
 import com.scs.web.space.api.mapper.AlbumMapper;
 import com.scs.web.space.api.service.AlbumService;
@@ -30,74 +29,58 @@ public class AlbumServiceImpl implements AlbumService {
     private AlbumMapper albumMapper;
 
     @Override
-    public Result insertAlbum(AlbumDto albumDto) {
-     try {
-         Album album = new Album();
-         album.setUserId(albumDto.getUserId());
-         album.setName(albumDto.getName());
-         album.setCover(albumDto.getCover());
-         album.setCreateTime(LocalDateTime.now());
-         albumMapper.insertAlbum(album);
-     }catch (SQLException e){
-         logger.error("新增相册异常");
-         return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
-     }
+    public Result insert(Album album) {
+        try {
+            Album album1 = new Album();
+            album1.setUserId(album.getUserId());
+            album1.setAlbumName(album.getAlbumName());
+            album1.setCover(album.getCover());
+            album1.setCreateTime(LocalDateTime.now());
+            albumMapper.insert(album1);
+        } catch (SQLException e) {
+            logger.error("新增相册异常");
+            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+        }
         return Result.success();
     }
 
     @Override
-    public Result getAlbum() {
-        List<Album> albumList = new ArrayList<>();
+    public Result selectAll() {
+        List<Album> albumList = null;
         try {
-            albumList = albumMapper.getAlbum();
+            albumList = albumMapper.selectAll();
         } catch (SQLException e) {
             logger.error("相册查询异常");
         }
-        if(albumList != null){
+        if (albumList != null) {
             return Result.success(albumList);
         }
         return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
     }
 
     @Override
-    public Result getAccountByUserId(long id) {
-        List<Album> albumList = new ArrayList<>();
+    public Result selectByUserId(int userId) {
+        List<Album> albumList = null;
         try {
-            albumList = albumMapper.getByUserId(id);
+            albumList = albumMapper.selectByUserId(userId);
         } catch (SQLException e) {
             logger.error("查询个人相册异常");
         }
-        if(albumList != null){
-            return Result.success(albumList.size());
-        }
-        return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
-    }
-
-    @Override
-    public Result getByUserId(long id) {
-        List<Album> albumList = new ArrayList<>();
-        try {
-            albumList = albumMapper.getByUserId(id);
-        } catch (SQLException e) {
-            logger.error("查询个人相册异常");
-        }
-        if(albumList != null){
+        if (albumList != null) {
             return Result.success(albumList);
         }
         return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
     }
 
+
     @Override
-    public Result deleteByName(int id) {
-        int n = 0;
+    public Result delete(int id) {
         try {
-            n = albumMapper.deleteByName(id);
+            albumMapper.delete(id);
         } catch (SQLException e) {
             logger.error("删除相册异常");
+            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
         }
-        if(n != 0){
-            return Result.success();
-        }
-        return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+        return Result.success();
     }
 }
