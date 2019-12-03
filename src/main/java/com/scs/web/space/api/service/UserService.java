@@ -36,4 +36,5 @@ public interface UserService {
      * @return Result
      */
     Result getUserById(int id);
+
 }

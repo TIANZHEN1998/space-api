@@ -17,10 +17,10 @@ import java.util.List;
 public interface NotesService {
     /**
      * 用户所有日志列表
-     * @param currentPage, pageSize
+     * @param userId
      * @return Result
      */
-    Result getByUserId(int userId, int currentPage, int pageSize);
+    Result getByUserId(int userId,int currentPage, int pageSize);
 
     /**
      * 查询所有日志

@@ -46,11 +46,11 @@ public interface UserMapper {
      */
 
     @Select("SELECT * FROM t_user WHERE id = #{id} ")
-    @Results({
+   /* @Results({
             @Result(property = "id",column = "id"),
             @Result(property = "notesList", column = "id",
                     many = @Many(select = "com.scs.web.space.api.mapper.NotesMapper.selectNotesByUserId"))
-    })
+    })*/
     User getUserById(@Param("id")int id)throws SQLException;
 
     /**

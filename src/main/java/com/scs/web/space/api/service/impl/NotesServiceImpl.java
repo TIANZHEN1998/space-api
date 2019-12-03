@@ -34,10 +34,10 @@ public class NotesServiceImpl implements NotesService {
     private NotesMapper notesMapper;
 
     @Override
-    public Result getByUserId(int id) {
+    public Result getByUserId(int userId,int currentPage, int pageSize) {
         List<Map> map = new ArrayList<Map>();
         try {
-            map = notesMapper.getByUserId(id);
+            map = notesMapper.getByUserId(userId,currentPage,pageSize);
         } catch (SQLException e) {
             logger.error("获取用户日志异常");
         }
@@ -45,6 +45,11 @@ public class NotesServiceImpl implements NotesService {
             return Result.success(map);
         }
         return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+    }
+
+    @Override
+    public Result getAllNotes() {
+        return null;
     }
 
     @Override

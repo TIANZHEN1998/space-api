@@ -1,6 +1,7 @@
 package com.scs.web.space.api.controller;
 
 import com.scs.web.space.api.domain.dto.NotesDto;
+import com.scs.web.space.api.domain.dto.Page;
 import com.scs.web.space.api.service.NotesService;
 import com.scs.web.space.api.util.Result;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +20,10 @@ public class NotesController {
     @Resource
     private NotesService notesService;
 
-    @GetMapping(value = "/user/{id}")
-    Result getNotesByUserId(@PathVariable int id){
-        return notesService.getByUserId(id);
+    @PostMapping(value = "/user")
+    Result getByUserId(@RequestBody Page page){
+        System.out.println(page);
+        return notesService.getByUserId(page.getUserId(), page.getCurrentPage(), page.getPageSize());
     }
 
     @GetMapping(value = "/{id}")

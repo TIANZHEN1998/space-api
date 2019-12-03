@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
  **/
 @Service
 public class UserServiceImpl implements UserService {
+
     private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Resource
@@ -48,7 +50,7 @@ public class UserServiceImpl implements UserService {
                 user1.setPassword(dto.getPassword());
                 user1.setNickname("新用户");
                 user1.setAvatar("https://www.jianshu.com/u/822585e5c69a");
-                user1.setCreateTime(LocalDateTime.now());
+                user1.setCreateTime(new Timestamp(System.currentTimeMillis()));
                 userMapper.insertUser(user1);
             } catch (SQLException e) {
                 logger.error("新增用户出现异常");
@@ -74,44 +76,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result batchInsert(UserDto dto) {
-        int n = 0;
-        List<User> userList = new ArrayList<>();
-        try {
-            for (int i = 0; i < 3; i++) {
-                User user = new User();
-                user.setMobile(String.valueOf(i));
-                user.setPassword(dto.getPassword());
-                user.setNickname("新用户");
-                user.setAvatar("https://www.jianshu.com/u/822585e5c69a");
-                user.setCreateTime(LocalDateTime.now());
-                userList.add(user);
-            }
-            n = userMapper.batchInsert(userList);
-        } catch (SQLException e) {
-            logger.error("批量新增用户出现异常");
-        }
-        if (n != 0) {
-            return Result.success();
-        } else {
-            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
-        }
+    public Result getUserById(int id) {
+        return null;
     }
 
-    @Override
-    public Result batchDelete(int id) {
-        int n=0;
-        List<User> userList=new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            User user = new User();
-            user.setId(i+27);
-            userList.add(user);
-        }
-        n = userMapper.batchDelete(userList);
-        if (n != 0) {
-            return Result.success();
-        } else {
-            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
-        }
-    }
+
 }
