@@ -88,8 +88,9 @@ public interface NotesMapper {
      */
     @Delete("DELETE FROM t_notes WHERE id = #{id}")
     int deleteById(int id);
+
     /**
-     * 根据用户id查询所有日志
+     * 根据用户id查询所有日志,与用户进行联查
      * @param userId
      * @return
      * @throws SQLException

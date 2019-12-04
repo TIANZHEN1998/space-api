@@ -17,6 +17,7 @@ public class Notes {
     private Integer id;
     private Integer userId;
     private String title;
+    private String description;
     private String content;
     private Integer comments;
     private Integer likes;

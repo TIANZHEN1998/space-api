@@ -1,9 +1,7 @@
 package com.scs.web.space.api.mapper;
 
 import com.scs.web.space.api.SpaceApiApplication;
-import com.scs.web.space.api.domain.dto.NotesDto;
 import com.scs.web.space.api.domain.entity.Notes;
-import org.apache.ibatis.jdbc.SQL;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -12,19 +10,18 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest(classes = SpaceApiApplication.class)
 class NotesMapperTest {
     @Resource
     private NotesMapper notesMapper;
-
     @Test
-    void getByUserId() {
+    void getByUserId() throws SQLException {
+
     }
 
     @Test
-    void getNotesById() {
+    void getNotesById() throws SQLException {
+
     }
 
     @Test
@@ -54,7 +51,7 @@ class NotesMapperTest {
     }
 
     @Test
-    void testGetNotesById() {
+    void testGetNotesById() throws SQLException {
     }
 
     @Test
