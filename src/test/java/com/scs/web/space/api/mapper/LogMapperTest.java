@@ -18,17 +18,6 @@ import java.util.Map;
 class LogMapperTest {
     @Resource
     private NotesMapper logMapper;
-    @Test
-    void batchDelete() {
-        List<Notes> logList = new ArrayList<>();
-        for(int i = 1; i<10; i++){
-            Notes log = new Notes();
-            log.setUserId(i);
-            logList.add(log);
-        }
-        int n = logMapper.batchDelete(logList);
-        System.out.println(n);
-    }
 
     @Test
     void insertLog() throws SQLException {
@@ -38,32 +27,12 @@ class LogMapperTest {
         log.setTitle("哈");
         log.setAccessStatus(0);
         log.setEditStatus(1);
-        log.setForwardStatus(1);
+        log.setForwardStatus((short) 1);
         log.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
         System.out.println(log);
         int n = logMapper.insertLog(log);
         System.out.println(n);
     }
-
-    @Test
-    void batchInsert() {
-        List<Notes> logList = new ArrayList<>();
-        for(int i = 0; i<9; i++){
-            Notes log = new Notes();
-            log.setUserId(1);
-            log.setContent("哈哈");
-            log.setTitle("哈");
-            log.setAccessStatus(0);
-            log.setEditStatus(1);
-            log.setForwardStatus(1);
-
-            log.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
-            logList.add(log);
-        }
-        int n = logMapper.batchInsert(logList);
-        System.out.println(n);
-    }
-
     @Test
     void getLogById() throws SQLException {
 
@@ -83,7 +52,7 @@ class LogMapperTest {
     log.setContent("h");
     log.setEditStatus(4);
     log.setAccessStatus(3);
-    log.setForwardStatus(3);
+    log.setForwardStatus((short) 3);
     log.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
         System.out.println(logMapper.updateLog(log));
     }

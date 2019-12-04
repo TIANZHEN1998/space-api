@@ -33,13 +33,17 @@ class UserMapperTest {
 
     @Test
     void selectAll() throws SQLException {
-        List<User> users = userMapper.selectAll();
-        users.forEach(System.out::println);
+        User users = userMapper.selectById(1);
+        System.out.println(users);
     }
 
     @Test
     void getUserById() throws SQLException {
-        User user = userMapper.getUserById(1);
+        User user = userMapper.selectById(1);
         System.out.println(user);
+    }
+
+    @Test
+    void getById() throws SQLException {
     }
 }

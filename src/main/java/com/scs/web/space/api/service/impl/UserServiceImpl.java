@@ -61,23 +61,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result selectAll() {
-        List<User> userList = null;
-        try {
-            userList = userMapper.selectAll();
-        } catch (SQLException e) {
-            logger.error("查询所有用户出现异常");
-        }
-        if (userList != null) {
-            return Result.success(userList);
-        } else {
-            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
-        }
+    public Result selectAll(int id) {
+       return null;
     }
 
     @Override
     public Result getUserById(int id) {
-        return null;
+        User user = null;
+        try {
+            user = userMapper.selectById(id);
+        } catch (SQLException e) {
+            logger.error("查询所有用户出现异常");
+        }
+        if (user != null) {
+            return Result.success(user);
+        } else {
+            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+        }
     }
 
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
     <!-- 设置日志输出根目录 -->
-    <property name="log.dir" value="logs" />
+    <property name="log.dir" value="e:\\logs" />
     <property name="encoding" value="UTF-8" />
     <property name="pattern"
               value="%d{yyyy-MM-dd.HH:mm:ss} %-5level [%thread] %logger.%M:%L  %msg%n" />

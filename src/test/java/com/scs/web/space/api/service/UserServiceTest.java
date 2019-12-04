@@ -27,7 +27,7 @@ class UserServiceTest {
 
     @Test
     void selectAll() {
-        Result result = userService.selectAll();
+        Result result = userService.selectAll(1);
         System.out.println(result.getData());
     }
 

@@ -25,11 +25,6 @@ public class UserController {
         return userService.signUp(userDto);
     }
 
-    @GetMapping(value = "/list")
-    Result getAll() {
-        return userService.selectAll();
-    }
-
     @GetMapping(value = "/{id}")
     public Result getUserById(@PathVariable int id){
         return userService.getUserById(id);

@@ -27,7 +27,7 @@ public interface UserService {
      * @author mq_xu
      * @date 2019.12.1
      */
-    Result selectAll();
+    Result selectAll(int id);
 
     /**
      * 根据id查询用户

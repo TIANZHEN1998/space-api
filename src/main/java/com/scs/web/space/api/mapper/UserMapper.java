@@ -60,9 +60,15 @@ public interface UserMapper {
      * @return
      * @throws SQLException
      */
-    @Select("SELECT * FROM t_user ")
-    List<User> selectAll() throws SQLException;
+    @Select("SELECT * FROM t_user WHERE id = #{userId}")
+    User selectById(int userId) throws SQLException;
 
+    /**
+     * 与评论表进行联查
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     @Select("SELECT * FROM t_user WHERE id = #{userId}")
     List<User> getById(@Param("userId") int id) throws SQLException;
 
