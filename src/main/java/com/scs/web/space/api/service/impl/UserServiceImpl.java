@@ -62,7 +62,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Result selectAll(int id) {
-       return null;
+        User user = new User();
+        try {
+            user = userMapper.selectById(id);
+        } catch (SQLException e) {
+            logger.error("查询用户日志异常");
+        }
+        if(user != null){
+            return Result.success(user);
+        }
+        return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
     }
 
     @Override

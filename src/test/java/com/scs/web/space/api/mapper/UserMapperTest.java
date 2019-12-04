@@ -33,7 +33,7 @@ class UserMapperTest {
 
     @Test
     void selectAll() throws SQLException {
-        User users = userMapper.selectById(1);
+        User users = userMapper.selectById(2);
         System.out.println(users);
     }
 

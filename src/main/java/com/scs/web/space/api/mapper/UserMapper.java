@@ -55,13 +55,17 @@ public interface UserMapper {
     User getUserById(@Param("id")int id)throws SQLException;
 
     /**
-     * 查询用户表所有用户
+     * 查询用户表所有日志
      *
      * @return
      * @throws SQLException
      */
-    @Select("SELECT * FROM t_user WHERE id = #{userId}")
-    User selectById(int userId) throws SQLException;
+    @Select("SELECT * FROM t_user WHERE id = #{id} ")
+    @Results({
+            @Result(property = "notesList", column = "id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.NotesMapper.selectNotesByUserId")),
+    })
+    User selectById(@Param("id") int id) throws SQLException;
 
     /**
      * 与评论表进行联查
