@@ -7,6 +7,7 @@ import com.scs.web.space.api.util.Result;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author wf
@@ -22,13 +23,17 @@ public class NotesController {
 
     @PostMapping(value = "/user")
     Result getByUserId(@RequestBody Page page){
-        System.out.println(page);
         return notesService.getByUserId(page.getUserId(), page.getCurrentPage(), page.getPageSize());
+    }
+
+    @GetMapping(value = "/user/{id}")
+    Result selectNotes(@PathVariable int id){
+        return notesService.selectNotesByUserId(id);
     }
 
     @GetMapping(value = "/{id}")
     Result getById(@PathVariable int id){
-        return notesService.getNotesById(id);
+        return notesService.getById(id);
     }
 
     @PostMapping(value = "")

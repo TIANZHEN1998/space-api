@@ -46,11 +46,12 @@ public interface UserMapper {
      */
 
     @Select("SELECT * FROM t_user WHERE id = #{id} ")
-   /* @Results({
-            @Result(property = "id",column = "id"),
+    @Results({
             @Result(property = "notesList", column = "id",
-                    many = @Many(select = "com.scs.web.space.api.mapper.NotesMapper.selectNotesByUserId"))
-    })*/
+                    many = @Many(select = "com.scs.web.space.api.mapper.NotesMapper.selectNotesByUserId")),
+            @Result(property = "comment", column = "id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.CommentMapper.getByUserId"))
+    })
     User getUserById(@Param("id")int id)throws SQLException;
 
     /**
@@ -61,5 +62,8 @@ public interface UserMapper {
      */
     @Select("SELECT * FROM t_user ")
     List<User> selectAll() throws SQLException;
+
+    @Select("SELECT * FROM t_user WHERE id = #{userId}")
+    List<User> getById(@Param("userId") int id) throws SQLException;
 
 }

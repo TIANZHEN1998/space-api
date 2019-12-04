@@ -29,4 +29,5 @@ public class User {
     private Short status;
     private Timestamp createTime;
     private List<Notes> notesList;
+    private Comment comment;
 }

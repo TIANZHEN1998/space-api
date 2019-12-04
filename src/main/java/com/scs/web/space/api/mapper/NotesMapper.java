@@ -1,9 +1,7 @@
 package com.scs.web.space.api.mapper;
 
-import com.scs.web.space.api.domain.dto.Page;
 import com.scs.web.space.api.domain.entity.Notes;
 import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.jdbc.SQL;
 
 import java.sql.SQLException;
 import java.text.MessageFormat;
@@ -44,18 +42,16 @@ public interface NotesMapper {
             "LIMIT ${pageSize*(currentPage-1)},#{pageSize}")
     List<Map> getByUserId(int userId,int currentPage, int pageSize) throws SQLException;
 
+   /* @ResultMap("notes")*/
     /**
      * 查询日志详情
-     * @param id
+     * @param
      * @return Map
      * @throws SQLException
      */
-    @ResultMap("notes")
-    @Select("SELECT t1.*,t2.nickname,t2.avatar FROM t_notes t1 " +
-            " LEFT JOIN t_user t2 " +
-            "ON t1.user_id = t2.id " +
-            "WHERE t1.id = #{id} ")
-    Map getNotesById(int id) throws SQLException;
+
+    @Select("SELECT * FROM t_notes WHERE id = #{id} ")
+    Notes getNotesById(@Param("id") int id) throws SQLException;
 
 
     /**
@@ -64,7 +60,7 @@ public interface NotesMapper {
      * @throws SQLException
      */
     @Select("SELECT * FROM t_notes ORDER BY create_time ASC")
-    List<Notes> getAllNotes() throws SQLException;
+    Notes getAllNotes() throws SQLException;
 
     /**
      * 新增日志信息
@@ -75,15 +71,6 @@ public interface NotesMapper {
     @Insert("INSERT INTO t_notes(id,user_id,title,content,edit_status,access_status,forward_status,create_time)" +
             "VALUES (null,#{userId},#{title},#{content},#{editStatus},#{accessStatus},#{forwardStatus},#{createTime})")
     int insertLog(Notes notes) throws SQLException;
-
-    /**
-     * 批量新增日志信息
-     * @param logs
-     * @return
-     */
-    @InsertProvider(type = Provider.class, method = "batchInsert")
-    int batchInsert(List<Notes> logs);
-
     /**
      * 根据日志id更新新日志信息
      * @param log
@@ -94,15 +81,6 @@ public interface NotesMapper {
             "access_status=#{accessStatus},forward_status=#{forwardStatus},create_time=#{createTime}" +
             "WHERE id=#{id}")
     int updateLog(Notes log) throws SQLException;
-
-    /**
-     * 批量删除日志
-     * @param logs
-     * @return
-     */
-    @DeleteProvider(type = Provider.class, method = "batchDelete")
-    int batchDelete(List<Notes> logs);
-
     /**
      * 根据id删除数据
      * @param id
@@ -110,39 +88,6 @@ public interface NotesMapper {
      */
     @Delete("DELETE FROM t_notes WHERE id = #{id}")
     int deleteById(int id);
-
-    class Provider {
-        /* 批量插入 */
-        public String batchInsert(Map map) {
-            List<Notes> logs = (List<Notes>) map.get("list");
-            StringBuilder sb = new StringBuilder();
-            sb.append("INSERT INTO t_notes (user_id,title,content,edit_status,access_status,forward_status,create_time) VALUES ");
-            MessageFormat mf = new MessageFormat(
-                    "(#'{'list[{0}].userId}, #'{'list[{0}].title}, #'{'list[{0}].content},#'{'list[{0}].editStatus},#'{'list[{0}].accessStatus},#'{'list[{0}].forwardStatus},#'{'list[{0}].createTime})");
-
-            for (int i = 0; i < logs.size(); i++) {
-                sb.append(mf.format(new Object[] {i}));
-                if (i < logs.size() - 1)
-                    sb.append(",");
-            }
-            return sb.toString();
-        }
-
-        /* 批量删除 */
-        public String batchDelete(Map map) {
-            List<Notes> logs = (List<Notes>) map.get("list");
-            StringBuilder sb = new StringBuilder();
-            sb.append("DELETE FROM t_notes WHERE id IN (");
-            for (int i = 0; i < logs.size(); i++) {
-                sb.append(logs.get(i).getId());
-                if (i < logs.size() - 1)
-                    sb.append(",");
-            }
-            sb.append(")");
-            return sb.toString();
-        }
-    }
-
     /**
      * 根据用户id查询所有日志
      * @param userId
@@ -151,4 +96,19 @@ public interface NotesMapper {
      */
     @Select("SELECT * FROM t_notes  WHERE user_id = #{userId} ")
     List<Notes> selectNotesByUserId(@Param("userId") int userId)throws SQLException;
+
+
+    /**
+     * user、comment、notes三表联查
+     * @param id
+     * @return
+     * @throws SQLException
+     */
+    @Results({
+            @Result(property = "comment", column = "id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.CommentMapper.getByUserId")),
+    })
+    @Select("SELECT * FROM t_notes WHERE id = #{id} ")
+
+    Notes getByNotesId(@Param("id") int id)throws SQLException;
 }

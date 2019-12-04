@@ -7,6 +7,7 @@ import com.scs.web.space.api.domain.entity.Notes;
 import com.scs.web.space.api.util.Result;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName LogService
@@ -20,7 +21,7 @@ public interface NotesService {
      * @param userId
      * @return Result
      */
-    Result getByUserId(int userId,int currentPage, int pageSize);
+    Result getByUserId(int userId, int currentPage, int pageSize);
 
     /**
      * 查询所有日志
@@ -34,6 +35,8 @@ public interface NotesService {
      * @return Result
      */
     Result getNotesById(int id);
+
+    Result getById(int id);
 
     /**
      * 新增日志

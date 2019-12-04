@@ -1,8 +1,10 @@
 package com.scs.web.space.api.service.impl;
 
 import com.scs.web.space.api.domain.dto.NotesDto;
+import com.scs.web.space.api.domain.entity.Friend;
 import com.scs.web.space.api.domain.entity.Notes;
 import com.scs.web.space.api.domain.entity.User;
+import com.scs.web.space.api.mapper.FriendMapper;
 import com.scs.web.space.api.mapper.NotesMapper;
 import com.scs.web.space.api.service.NotesService;
 import com.scs.web.space.api.util.Result;
@@ -32,6 +34,7 @@ public class NotesServiceImpl implements NotesService {
 
     @Resource
     private NotesMapper notesMapper;
+    private FriendMapper friendMapper;
 
     @Override
     public Result getByUserId(int userId,int currentPage, int pageSize) {
@@ -54,14 +57,28 @@ public class NotesServiceImpl implements NotesService {
 
     @Override
     public Result getNotesById(int id) {
-        Map map = new HashMap();
+        Notes notes = new Notes();
         try {
-            map = notesMapper.getNotesById(id);
+            notes = notesMapper.getNotesById(id);
         } catch (SQLException e) {
             logger.error("日志详情获取异常");
         }
-        if(map != null){
-            return Result.success(map);
+        if(notes != null){
+            return Result.success(notes);
+        }
+        return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+    }
+
+    @Override
+    public Result getById(int id) {
+        Notes notes = new Notes();
+        try {
+            notes = notesMapper.getByNotesId(id);
+        } catch (SQLException e) {
+            logger.error("文章详情查询异常");
+        }
+        if(notes != null){
+            return Result.success(notes);
         }
         return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
     }
