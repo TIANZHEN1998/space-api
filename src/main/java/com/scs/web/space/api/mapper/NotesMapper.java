@@ -70,7 +70,7 @@ public interface NotesMapper {
      */
     @Insert("INSERT INTO t_notes(id,user_id,title,content,edit_status,access_status,forward_status,create_time)" +
             "VALUES (null,#{userId},#{title},#{content},#{editStatus},#{accessStatus},#{forwardStatus},#{createTime})")
-    int insertLog(Notes notes) throws SQLException;
+    int insertNotes(Notes notes) throws SQLException;
     /**
      * 根据日志id更新新日志信息
      * @param log
@@ -80,7 +80,7 @@ public interface NotesMapper {
     @Update("UPDATE t_notes SET title=#{title}, content=#{content},edit_status=#{editStatus}," +
             "access_status=#{accessStatus},forward_status=#{forwardStatus},create_time=#{createTime}" +
             "WHERE id=#{id}")
-    int updateLog(Notes log) throws SQLException;
+    int updateNotes(Notes log) throws SQLException;
     /**
      * 根据id删除数据
      * @param id
@@ -98,6 +98,18 @@ public interface NotesMapper {
     @Select("SELECT * FROM t_notes  WHERE user_id = #{userId} ")
     List<Notes> selectNotesByUserId(@Param("userId") int userId)throws SQLException;
 
+    /**
+     * 根据用户id查询所有日志,与用户进行联查
+     * @param userId
+     * @return
+     * @throws SQLException
+     */
+    @Select("SELECT * FROM t_notes  WHERE user_id = #{userId} ")
+    @Results({
+            @Result(property = "user", column = "user_id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.UserMapper.getUserById")),
+    })
+    Notes getNotesByUserId(@Param("userId") int userId)throws SQLException;
 
     /**
      * user、comment、notes三表联查

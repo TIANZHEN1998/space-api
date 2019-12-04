@@ -70,20 +70,6 @@ public class NotesServiceImpl implements NotesService {
     }
 
     @Override
-    public Result getById(int id) {
-        Notes notes = new Notes();
-        try {
-            notes = notesMapper.getByNotesId(id);
-        } catch (SQLException e) {
-            logger.error("文章详情查询异常");
-        }
-        if(notes != null){
-            return Result.success(notes);
-        }
-        return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
-    }
-
-    @Override
     public Result insertNotes(NotesDto notesDto) {
         int n = 0;
         try {
@@ -95,7 +81,7 @@ public class NotesServiceImpl implements NotesService {
             notes.setAccessStatus(notesDto.getAccessStatus());
             notes.setForwardStatus(notesDto.getForwardStatus());
             notes.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
-            n = notesMapper.insertLog(notes);
+            n = notesMapper.insertNotes(notes);
         } catch (SQLException e) {
             logger.error("新增日志异常");
         }
@@ -117,7 +103,7 @@ public class NotesServiceImpl implements NotesService {
             notes.setForwardStatus(notesDto.getForwardStatus());
             notes.setAccessStatus(notesDto.getAccessStatus());
             notes.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
-            n = notesMapper.updateLog(notes);
+            n = notesMapper.updateNotes(notes);
         } catch (SQLException e) {
             logger.error("更改日志异常");
         }

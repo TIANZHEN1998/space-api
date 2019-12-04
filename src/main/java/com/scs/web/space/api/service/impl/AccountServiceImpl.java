@@ -1,7 +1,9 @@
 package com.scs.web.space.api.service.impl;
 
 import com.scs.web.space.api.domain.entity.Account;
+import com.scs.web.space.api.domain.entity.Friend;
 import com.scs.web.space.api.mapper.AccountMapper;
+import com.scs.web.space.api.mapper.FriendMapper;
 import com.scs.web.space.api.service.AccountService;
 import com.scs.web.space.api.util.Result;
 import com.scs.web.space.api.util.ResultCode;
@@ -11,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +28,7 @@ import java.util.Map;
 public class AccountServiceImpl implements AccountService {
     @Resource
     private AccountMapper accountMapper;
+    private FriendMapper friendMapper;
     private Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
 
     @Override
@@ -39,4 +44,11 @@ public class AccountServiceImpl implements AccountService {
         }
         return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
     }
+
+    @Override
+    public List list() {
+        return null;
+    }
+
+
 }

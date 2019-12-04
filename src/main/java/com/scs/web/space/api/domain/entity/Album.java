@@ -2,6 +2,7 @@ package com.scs.web.space.api.domain.entity;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -17,5 +18,5 @@ public class Album {
     private String albumName;
     private String name;
     private String cover;
-    private LocalDateTime createTime;
+    private Timestamp createTime;
 }

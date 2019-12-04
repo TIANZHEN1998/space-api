@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class AlbumServiceImpl implements AlbumService {
             album1.setUserId(album.getUserId());
             album1.setAlbumName(album.getAlbumName());
             album1.setCover(album.getCover());
-            album1.setCreateTime(LocalDateTime.now());
+            album1.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
             albumMapper.insert(album1);
         } catch (SQLException e) {
             logger.error("新增相册异常");

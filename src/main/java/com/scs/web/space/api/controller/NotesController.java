@@ -33,7 +33,7 @@ public class NotesController {
 
     @GetMapping(value = "/{id}")
     Result getById(@PathVariable int id){
-        return notesService.getById(id);
+        return notesService.getNotesById(id);
     }
 
     @PostMapping(value = "")

@@ -36,8 +36,6 @@ public interface NotesService {
      */
     Result getNotesById(int id);
 
-    Result getById(int id);
-
     /**
      * 新增日志
      * @param notesDto
@@ -66,5 +64,10 @@ public interface NotesService {
      */
     Result batchDelete(List<Notes> list);
 
+    /**
+     * 用户所有日志列表
+     * @param userId
+     * @return
+     */
     Result selectNotesByUserId(int userId);
 }
