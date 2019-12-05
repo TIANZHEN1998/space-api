@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 /**
  * @author Tao
  * @ClassName Photo
- * @Description TODO
+ * @Description 相册实体类
  * @Date 2019/12/3
  * @Version 1.0
  **/

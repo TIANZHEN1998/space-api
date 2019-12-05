@@ -1,5 +1,6 @@
 package com.scs.web.space.api.domain.entity;
 
+import com.scs.web.space.api.domain.vo.UserVo;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -26,6 +27,6 @@ public class Notes {
     private Integer accessStatus;
     private Short forwardStatus;
     private Timestamp createTime;
-    private User user;
+    private UserVo userVo;
     private List<Comment> comment;
 }

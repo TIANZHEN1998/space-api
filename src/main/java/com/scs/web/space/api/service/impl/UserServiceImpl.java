@@ -2,6 +2,7 @@ package com.scs.web.space.api.service.impl;
 
 import com.scs.web.space.api.domain.dto.UserDto;
 import com.scs.web.space.api.domain.entity.User;
+import com.scs.web.space.api.domain.vo.UserVo;
 import com.scs.web.space.api.mapper.UserMapper;
 import com.scs.web.space.api.service.UserService;
 import com.scs.web.space.api.util.Result;
@@ -62,23 +63,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Result selectAll(int id) {
-        User user = new User();
+        UserVo userVo = new UserVo();
         try {
-            user = userMapper.selectById(id);
+            userVo = userMapper.getUserById(id);
         } catch (SQLException e) {
-            logger.error("查询用户日志异常");
+            logger.error("查询用户个人动态异常");
         }
-        if(user != null){
-            return Result.success(user);
+        if(userVo != null){
+            return Result.success(userVo);
         }
         return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
     }
 
     @Override
     public Result getUserById(int id) {
-        User user = null;
+        UserVo user = null;
         try {
-            user = userMapper.selectById(id);
+            user = userMapper.getUserById(id);
         } catch (SQLException e) {
             logger.error("查询所有用户出现异常");
         }
@@ -87,6 +88,20 @@ public class UserServiceImpl implements UserService {
         } else {
             return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
         }
+    }
+
+    @Override
+    public Result getDynamicById(int id) {
+        UserVo userVo = new UserVo();
+        try {
+           userVo = userMapper.getDynamicById(id);
+        } catch (SQLException e) {
+            logger.error("用户动态查询异常");
+        }
+        if(userVo != null){
+            return Result.success(userVo);
+        }
+        return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
     }
 
 

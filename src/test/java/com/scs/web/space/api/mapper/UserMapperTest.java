@@ -2,6 +2,7 @@ package com.scs.web.space.api.mapper;
 
 import com.scs.web.space.api.SpaceApiApplication;
 import com.scs.web.space.api.domain.entity.User;
+import com.scs.web.space.api.domain.vo.UserVo;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -31,19 +32,4 @@ class UserMapperTest {
         assertNotNull(user);
     }
 
-    @Test
-    void selectAll() throws SQLException {
-        User users = userMapper.selectById(2);
-        System.out.println(users);
-    }
-
-    @Test
-    void getUserById() throws SQLException {
-        User user = userMapper.selectById(1);
-        System.out.println(user);
-    }
-
-    @Test
-    void getById() throws SQLException {
-    }
 }

@@ -26,13 +26,18 @@ public class NotesController {
         return notesService.getByUserId(page.getUserId(), page.getCurrentPage(), page.getPageSize());
     }
 
+    @GetMapping(value = "/d/{id}")
+    Result getPersonDynamic(@PathVariable int id){
+        return notesService.getPersonDynamic(id);
+    }
+
     @GetMapping(value = "/user/{id}")
     Result selectNotes(@PathVariable int id){
         return notesService.selectNotesByUserId(id);
     }
 
     @GetMapping(value = "/{id}")
-    Result getById(@PathVariable int id){
+    Result getNotesById(@PathVariable int id){
         return notesService.getNotesById(id);
     }
 

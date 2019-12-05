@@ -1,6 +1,7 @@
 package com.scs.web.space.api.mapper;
 
 import com.scs.web.space.api.domain.entity.Notes;
+import com.scs.web.space.api.domain.vo.NotesVo;
 import org.apache.ibatis.annotations.*;
 
 import java.sql.SQLException;
@@ -42,25 +43,22 @@ public interface NotesMapper {
             "LIMIT ${pageSize*(currentPage-1)},#{pageSize}")
     List<Map> getByUserId(int userId,int currentPage, int pageSize) throws SQLException;
 
+
    /* @ResultMap("notes")*/
     /**
-     * 查询日志详情
+     * 查询日志详情(用信息，评论内容及评论人信息)
      * @param
      * @return Map
      * @throws SQLException
      */
-
     @Select("SELECT * FROM t_notes WHERE id = #{id} ")
+    @Results({
+            @Result(property = "comment", column = "id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.CommentMapper.getByUserId")),
+            @Result(property = "userVo", column = "id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.UserMapper.getUserById")),
+    })
     Notes getNotesById(@Param("id") int id) throws SQLException;
-
-
-    /**
-     * 查询所有用户所有的日志
-     * @return List<notes>
-     * @throws SQLException
-     */
-    @Select("SELECT * FROM t_notes ORDER BY create_time ASC")
-    Notes getAllNotes() throws SQLException;
 
     /**
      * 新增日志信息
@@ -91,37 +89,14 @@ public interface NotesMapper {
 
     /**
      * 根据用户id查询所有日志,与用户进行联查
-     * @param userId
-     * @return
-     * @throws SQLException
-     */
-    @Select("SELECT * FROM t_notes  WHERE user_id = #{userId} ")
-    List<Notes> selectNotesByUserId(@Param("userId") int userId)throws SQLException;
-
-    /**
-     * 根据用户id查询所有日志,与用户进行联查
-     * @param userId
-     * @return
-     * @throws SQLException
-     */
-    @Select("SELECT * FROM t_notes  WHERE user_id = #{userId} ")
-    @Results({
-            @Result(property = "user", column = "user_id",
-                    many = @Many(select = "com.scs.web.space.api.mapper.UserMapper.getUserById")),
-    })
-    Notes getNotesByUserId(@Param("userId") int userId)throws SQLException;
-
-    /**
-     * user、comment、notes三表联查
      * @param id
      * @return
      * @throws SQLException
      */
+    @Select("SELECT * FROM t_notes  WHERE user_id = #{id} ")
     @Results({
             @Result(property = "comment", column = "id",
                     many = @Many(select = "com.scs.web.space.api.mapper.CommentMapper.getByUserId")),
     })
-    @Select("SELECT * FROM t_notes WHERE id = #{id} ")
-
-    Notes getByNotesId(@Param("id") int id)throws SQLException;
+    List<NotesVo> getNotesCommentById(@Param("id") int id)throws SQLException;
 }

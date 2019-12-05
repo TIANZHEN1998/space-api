@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * @author wf
  * @ClassName Account
- * @Description 各个数量的存放
+ * @Description 数量实体类
  * @Date 2019/12/4
  */
 @Data

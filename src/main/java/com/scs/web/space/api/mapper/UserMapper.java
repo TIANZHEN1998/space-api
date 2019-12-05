@@ -1,6 +1,7 @@
 package com.scs.web.space.api.mapper;
 
 import com.scs.web.space.api.domain.entity.User;
+import com.scs.web.space.api.domain.vo.UserVo;
 import org.apache.ibatis.annotations.*;
 
 import java.sql.SQLException;
@@ -46,20 +47,23 @@ public interface UserMapper {
      */
 
     @Select("SELECT * FROM t_user WHERE id = #{id} ")
-    User getUserById(@Param("id")int id)throws SQLException;
+    UserVo getUserById(@Param("id")int id)throws SQLException;
 
     /**
-     * 查询用户表所有日志
+     * 查询用户表所有日志和相册（好友动态）
      *
      * @return
      * @throws SQLException
      */
     @Select("SELECT * FROM t_user WHERE id = #{id} ")
     @Results({
-            @Result(property = "notesList", column = "id",
-                    many = @Many(select = "com.scs.web.space.api.mapper.NotesMapper.selectNotesByUserId")),
+            @Result(property = "albumVo", column = "id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.AlbumMapper.getAlbumByUserId")),
+            @Result(property = "notesVo", column = "id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.NotesMapper.getNotesCommentById"))
     })
-    User selectById(@Param("id") int id) throws SQLException;
+    UserVo getDynamicById(@Param("id") int id) throws SQLException;
+
 
     /**
      * 与评论表进行联查

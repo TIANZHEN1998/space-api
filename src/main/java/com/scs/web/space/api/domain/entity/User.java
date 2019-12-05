@@ -30,4 +30,5 @@ public class User {
     private Timestamp createTime;
     private List<Notes> notesList;
     private Comment comment;
+    private List<Album> album;
 }

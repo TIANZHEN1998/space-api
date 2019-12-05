@@ -3,9 +3,13 @@ package com.scs.web.space.api.domain.entity;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.List;
 
+/**
+ * @author wf
+ * @ClassName Comment
+ * @Description 好友实体类
+ * @Date 2019/12/3
+ */
 @Data
 public class Friend {
     private Integer id;
@@ -13,5 +17,6 @@ public class Friend {
     private Integer toId;
     private Integer status;
     private Timestamp createTime;
-    private List<Notes> notes;
+    private User users;
+    private Album album;
 }

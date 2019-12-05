@@ -1,6 +1,7 @@
 package com.scs.web.space.api.service.impl;
 
 import com.scs.web.space.api.domain.entity.Album;
+import com.scs.web.space.api.domain.vo.AlbumVo;
 import com.scs.web.space.api.mapper.AlbumMapper;
 import com.scs.web.space.api.service.AlbumService;
 import com.scs.web.space.api.util.Result;
@@ -47,21 +48,21 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public Result selectAll() {
-        List<Album> albumList = null;
+       /* AlbumVo albumList = null;
         try {
-            albumList = albumMapper.selectAll();
+            albumList = albumMapper.getAlbumByUserId(2);
         } catch (SQLException e) {
             logger.error("相册查询异常");
         }
         if (albumList != null) {
             return Result.success(albumList);
-        }
+        }*/
         return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
     }
 
     @Override
     public Result selectByUserId(int userId) {
-        List<Album> albumList = null;
+        Album albumList = null;
         try {
             albumList = albumMapper.selectByUserId(userId);
         } catch (SQLException e) {

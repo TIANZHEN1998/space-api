@@ -11,8 +11,9 @@ import java.util.List;
 public interface CommentMapper {
     @Select("SELECT * FROM t_comment WHERE notes_id = #{id}")
     @Results({
-            @Result(property = "user", column = "user_id",
-                    many = @Many(select = "com.scs.web.space.api.mapper.UserMapper.getById"))
+            @Result(property = "userVo", column = "user_id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.UserMapper.getUserById"))
     })
     List<Comment> getByUserId(@Param("id") int id) throws SQLException;
+
 }

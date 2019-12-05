@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 public class Album {
     private Integer id;
     private Integer userId;
+    private Integer photos;
     private String albumName;
-    private String name;
     private String cover;
     private Timestamp createTime;
 }

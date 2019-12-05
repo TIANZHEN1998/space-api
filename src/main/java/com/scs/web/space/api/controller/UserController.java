@@ -30,4 +30,8 @@ public class UserController {
         return userService.selectAll(id);
     }
 
+    @GetMapping(value = "/d/{id}")
+    Result getDynamicById(@PathVariable int id){
+        return userService.getDynamicById(id);
+    }
 }

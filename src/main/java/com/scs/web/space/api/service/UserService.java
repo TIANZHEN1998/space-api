@@ -37,4 +37,6 @@ public interface UserService {
      */
     Result getUserById(int id);
 
+    Result getDynamicById(int id);
+
 }

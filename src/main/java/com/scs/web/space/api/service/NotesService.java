@@ -70,4 +70,6 @@ public interface NotesService {
      * @return
      */
     Result selectNotesByUserId(int userId);
+
+    Result getPersonDynamic(int userId);
 }

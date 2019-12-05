@@ -4,6 +4,7 @@ import com.scs.web.space.api.domain.dto.NotesDto;
 import com.scs.web.space.api.domain.entity.Friend;
 import com.scs.web.space.api.domain.entity.Notes;
 import com.scs.web.space.api.domain.entity.User;
+import com.scs.web.space.api.domain.vo.NotesVo;
 import com.scs.web.space.api.mapper.FriendMapper;
 import com.scs.web.space.api.mapper.NotesMapper;
 import com.scs.web.space.api.service.NotesService;
@@ -130,9 +131,9 @@ public class NotesServiceImpl implements NotesService {
 
     @Override
     public Result selectNotesByUserId(int userId) {
-        List<Notes> notesList = null;
+        List<NotesVo> notesList = null;
         try {
-            notesList = notesMapper.selectNotesByUserId(userId);
+            notesList = notesMapper.getNotesCommentById(userId);
         } catch (SQLException e) {
             logger.error("根据用户id查询所有日志出现异常");
         }
@@ -142,6 +143,21 @@ public class NotesServiceImpl implements NotesService {
         } else {
             return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
         }
+
+    }
+
+    @Override
+    public Result getPersonDynamic(int userId) {
+       /* List<NotesVo> notesVoList = new ArrayList<>();
+        try {
+            notesVoList = notesMapper.getDynamicById(userId);
+        } catch (SQLException e) {
+            logger.error("个人动态查询异常");
+        }
+        if(notesVoList != null){
+            return Result.success(notesVoList);
+        }*/
+        return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
     }
 
 }
