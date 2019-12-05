@@ -53,13 +53,13 @@ public interface NotesMapper {
      */
     @Select("SELECT * FROM t_notes WHERE id = #{id} ")
     @Results({
+            @Result(property = "id", column = "id"),
             @Result(property = "comment", column = "id",
                     many = @Many(select = "com.scs.web.space.api.mapper.CommentMapper.getByUserId")),
             @Result(property = "userVo", column = "id",
                     many = @Many(select = "com.scs.web.space.api.mapper.UserMapper.getUserById")),
     })
     Notes getNotesById(@Param("id") int id) throws SQLException;
-
     /**
      * 新增日志信息
      * @param notes
@@ -97,6 +97,19 @@ public interface NotesMapper {
     @Results({
             @Result(property = "comment", column = "id",
                     many = @Many(select = "com.scs.web.space.api.mapper.CommentMapper.getByUserId")),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "userVo", column = "user_id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.UserMapper.getUserById"))
     })
     List<NotesVo> getNotesCommentById(@Param("id") int id)throws SQLException;
+
+
+    /*获取好友日志评论*/
+    @Select("SELECT * FROM t_notes  WHERE user_id = #{id} ")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "comment", column = "id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.CommentMapper.getByUserId")),
+    })
+    List<NotesVo> getFriendCommentById(@Param("id") int id)throws SQLException;
 }

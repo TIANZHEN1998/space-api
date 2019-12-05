@@ -10,16 +10,16 @@ import java.util.List;
 
 public interface FriendMapper {
 
+    /*查看是否为好友*/
     @Select("SELECT * FROM t_friend WHERE from_id = #{fromId} AND to_id = #{toId}")
     Friend getFriend(int fromId, int toId) throws SQLException;
 
 
     @Select("SELECT * FROM t_friend WHERE from_id = #{id}")
-
-
     @Results({
-            @Result(property = "users", column = "to_id",
-                    many = @Many(select = "com.scs.web.space.api.mapper.UserMapper.selectById")),
+            @Result(property = "toId", column = "to_id"),
+            @Result(property = "userVo", column = "to_id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.UserMapper.getFriendDynamicById")),
     })
-    List<Friend> getAll(@Param("id") int id) throws SQLException;
+    List<Friend> getFriendDynamicById(@Param("id") int id) throws SQLException;
 }

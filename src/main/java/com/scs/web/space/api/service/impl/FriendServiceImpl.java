@@ -29,7 +29,7 @@ public class FriendServiceImpl implements FriendService {
     public Result getFriendDynamic(int userId) {
         List<Friend> friendList = new ArrayList<>();
         try {
-            friendList = friendMapper.getAll(userId);
+            friendList = friendMapper.getFriendDynamicById(userId);
         } catch (SQLException e) {
             logger.error("好友动态查询异常");
         }

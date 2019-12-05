@@ -32,4 +32,9 @@ class UserMapperTest {
         assertNotNull(user);
     }
 
+    @Test
+    void getFriendDynamicById() throws SQLException {
+        UserVo userVo = userMapper.getFriendDynamicById(3);
+        System.out.println(userVo);
+    }
 }

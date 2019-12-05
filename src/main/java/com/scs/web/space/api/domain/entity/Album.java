@@ -1,5 +1,6 @@
 package com.scs.web.space.api.domain.entity;
 
+import com.scs.web.space.api.domain.vo.UserVo;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -19,4 +20,5 @@ public class Album {
     private String albumName;
     private String cover;
     private Timestamp createTime;
+    private UserVo userVo;
 }

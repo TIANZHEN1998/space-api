@@ -50,13 +50,14 @@ public interface UserMapper {
     UserVo getUserById(@Param("id")int id)throws SQLException;
 
     /**
-     * 查询用户表所有日志和相册（好友动态）
+     * 查询用户表所有日志和   相册（好友动态）
      *
      * @return
      * @throws SQLException
      */
     @Select("SELECT * FROM t_user WHERE id = #{id} ")
     @Results({
+            @Result(property = "id", column = "id"),
             @Result(property = "albumVo", column = "id",
                     many = @Many(select = "com.scs.web.space.api.mapper.AlbumMapper.getAlbumByUserId")),
             @Result(property = "notesVo", column = "id",
@@ -64,7 +65,15 @@ public interface UserMapper {
     })
     UserVo getDynamicById(@Param("id") int id) throws SQLException;
 
-
+    @Select("SELECT * FROM t_user WHERE id = #{id} ")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "albumVo", column = "id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.AlbumMapper.getAlbumByUserId")),
+            @Result(property = "notesVo", column = "id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.NotesMapper.getFriendCommentById"))
+    })
+    UserVo getFriendDynamicById(@Param("id") int id) throws SQLException;
     /**
      * 与评论表进行联查
      * @param id

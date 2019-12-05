@@ -1,8 +1,10 @@
 package com.scs.web.space.api.domain.entity;
 
+import com.scs.web.space.api.domain.vo.UserVo;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * @author wf
@@ -17,6 +19,6 @@ public class Friend {
     private Integer toId;
     private Integer status;
     private Timestamp createTime;
-    private User users;
+    private UserVo userVo;
     private Album album;
 }
