@@ -27,7 +27,7 @@ class UserServiceTest {
 
     @Test
     void selectAll() {
-        Result result = userService.selectAll(2);
+        Result result = userService.getDynamicById(2);
         System.out.println(result);
     }
 

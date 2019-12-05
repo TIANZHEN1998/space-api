@@ -12,6 +12,8 @@ public interface FriendMapper {
 
     @Select("SELECT * FROM t_friend WHERE from_id = #{fromId} AND to_id = #{toId}")
     Friend getFriend(int fromId, int toId) throws SQLException;
+
+
     @Select("SELECT * FROM t_friend WHERE from_id = #{id}")
 
 

@@ -46,6 +46,6 @@ public class SmsUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(send("13951905171"));
+        System.out.println(send("14752191369"));
     }
 }
