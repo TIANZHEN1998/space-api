@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 @Data
 public class AlbumVo {
     private Integer id;
+    private Integer userId;
     private String albumName;
     private Timestamp createTime;
 }

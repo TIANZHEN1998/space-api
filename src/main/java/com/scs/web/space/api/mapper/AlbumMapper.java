@@ -2,10 +2,7 @@ package com.scs.web.space.api.mapper;
 
 import com.scs.web.space.api.domain.entity.Album;
 import com.scs.web.space.api.domain.vo.AlbumVo;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.sql.SQLException;
@@ -51,5 +48,6 @@ public interface AlbumMapper {
      * @throws SQLException
      */
     @Select("SELECT * FROM t_album WHERE user_id = #{userId} ")
+
     Album selectByUserId(@Param("userId") int userId) throws SQLException;
 }

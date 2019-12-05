@@ -28,7 +28,7 @@ class FriendMapperTest {
 
     @Test
     void getAll() throws SQLException {
-        List<Friend> notesList = friendMapper.getAll(2);
+        List<Friend> notesList = friendMapper.getFriendDynamicById(5);
         System.out.println(notesList);
     }
 }
