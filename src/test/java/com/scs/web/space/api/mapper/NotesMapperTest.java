@@ -24,9 +24,4 @@ class NotesMapperTest {
     void getById() throws SQLException {
     }
 
-    @Test
-    void testGetNotesById3() throws SQLException {
-        Notes notes = notesMapper.getNotesById(2);
-        System.out.println(notes);
-    }
 }

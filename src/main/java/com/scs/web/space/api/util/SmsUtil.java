@@ -8,8 +8,6 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
-
-
 /**
  * @ClassName SMSUtil
  * @Description 短信工具类
@@ -20,8 +18,8 @@ public class SmsUtil {
     public static String send(String mobile) {
         DefaultProfile profile = DefaultProfile.getProfile(
                 "cn-hangzhou",
-                "LTAIJF6wLhIIsqOO",
-                "SWi5Xp34hpFv9CZoa0yrbLSrJmFarl");
+                "LTAIaG9RkwvVwXq6",
+                "5WPkPJ4JY0nWciRfDpMFxzScm3oJn2");
         IAcsClient client = new DefaultAcsClient(profile);
         CommonRequest request = new CommonRequest();
         request.setMethod(MethodType.POST);
@@ -30,8 +28,8 @@ public class SmsUtil {
         request.setAction("SendSms");
         request.putQueryParameter("RegionId", "cn-hangzhou");
         request.putQueryParameter("PhoneNumbers", mobile);
-        request.putQueryParameter("SignName", "陶然然");
-        request.putQueryParameter("TemplateCode", "SMS_135805735");
+        request.putQueryParameter("SignName", "个人空间系统的设计与实现");
+        request.putQueryParameter("TemplateCode", "SMS_179616021");
         String verifyCode = StringUtil.getVerifyCode();
         request.putQueryParameter("TemplateParam", "{\"code\":" + verifyCode + "}");
         try {
@@ -46,6 +44,6 @@ public class SmsUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(send("14752191369"));
+        System.out.println(send("19850099292"));
     }
 }
