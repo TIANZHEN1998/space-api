@@ -6,6 +6,7 @@ import com.scs.web.space.api.mapper.UserMapper;
 import com.scs.web.space.api.service.UserService;
 import com.scs.web.space.api.util.Result;
 import com.scs.web.space.api.util.ResultCode;
+import com.scs.web.space.api.util.SmsUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,6 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 登录（成功）
-     *
      * @param mobile
      * @param password
      * @return
@@ -87,6 +87,7 @@ public class UserServiceImpl implements UserService {
                 user1.setEmail(dto.getEmail());
                 user1.setBirthday(new Date(2000-01-15));
                 user1.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
+                SmsUtil.send(dto.getMobile());
                 userMapper.insertUser(user1);
             } catch (SQLException e) {
                 logger.error("新增用户出现异常");
@@ -95,7 +96,6 @@ public class UserServiceImpl implements UserService {
         }
         return Result.success();
     }
-
 
     /**
      * 根据昵称模糊查询(成功)

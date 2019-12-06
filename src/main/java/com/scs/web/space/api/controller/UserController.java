@@ -26,11 +26,11 @@ public class UserController {
         return userService.login(user.getMobile(),user.getPassword());
     }
 
-//    @PostMapping(value = "/sign-up")
-//    Result signUp(@RequestBody UserDto userDto) {
-//        //客户端发送JSON参数，后端使用@RequstBody接收,注意要用Post方法
-//        return userService.signUp(userDto);
-//    }
+    @PostMapping(value = "/sign-up")
+    Result signUp(@RequestBody User userDto) {
+        //客户端发送JSON参数，后端使用@RequstBody接收,注意要用Post方法
+        return userService.signUp(userDto);
+    }
 
     /**
      * 查找所有用户

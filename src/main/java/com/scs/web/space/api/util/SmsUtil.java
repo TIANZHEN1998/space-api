@@ -11,7 +11,7 @@ import com.aliyuncs.profile.DefaultProfile;
 /**
  * @ClassName SMSUtil
  * @Description 短信工具类
- * @Author mq_xu
+ * @Author
  * @Date 2019/12/2
  **/
 public class SmsUtil {
