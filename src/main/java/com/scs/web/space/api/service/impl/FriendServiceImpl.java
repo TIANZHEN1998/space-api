@@ -25,17 +25,23 @@ public class FriendServiceImpl implements FriendService {
     @Resource
     private FriendMapper friendMapper;
     private Logger logger = LoggerFactory.getLogger(FriendServiceImpl.class);
+
     @Override
     public Result getFriendDynamic(int userId) {
         List<Friend> friendList = new ArrayList<>();
         try {
-            friendList = friendMapper.getAll(userId);
+            friendList = friendMapper.getFriendDynamicById(userId);
         } catch (SQLException e) {
             logger.error("好友动态查询异常");
         }
-    if(friendList != null){
-        return Result.success(friendList);
+        if (friendList != null) {
+            return Result.success(friendList);
+        }
+        return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
     }
-    return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+
+    @Override
+    public Friend findStatus(int from_id, int to_id) {
+        return null;
     }
 }

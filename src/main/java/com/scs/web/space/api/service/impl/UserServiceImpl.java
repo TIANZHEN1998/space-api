@@ -1,27 +1,27 @@
 package com.scs.web.space.api.service.impl;
-
 import com.scs.web.space.api.domain.dto.UserDto;
 import com.scs.web.space.api.domain.entity.User;
-import com.scs.web.space.api.domain.vo.UserVo;
 import com.scs.web.space.api.mapper.UserMapper;
 import com.scs.web.space.api.service.UserService;
 import com.scs.web.space.api.util.Result;
 import com.scs.web.space.api.util.ResultCode;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.MessageFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName UserServiceImpl
  * @Description TODO
- * @Author mq_xu
+ * @Author
  * @Date 2019/12/1
  **/
 @Service
@@ -32,8 +32,42 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
 
+    /**
+     * 登录（成功）
+     *
+     * @param mobile
+     * @param password
+     * @return
+     */
     @Override
-    public Result signUp(UserDto dto) {
+    public Result login(String mobile, String password) {
+
+        User admin = null;
+        try {
+            admin = userMapper.findUserByMobile(mobile);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (admin != null) {
+            if (DigestUtils.md5Hex(password).equals(admin.getPassword())) {
+                return Result.success(admin);
+
+            } else {  //记录存在，密码输入错误
+                return Result.failure(ResultCode.USER_PASSWORD_ERROR);
+            }
+        } else {  //账号不存在
+            return Result.failure(ResultCode.USER_ACCOUNT_ERROR);
+        }
+    }
+
+    /**
+     * 注册
+     *
+     * @param dto
+     * @return
+     */
+    @Override
+    public Result signUp(User dto) {
         User user;
         try {
             user = userMapper.findUserByMobile(dto.getMobile());
@@ -49,9 +83,9 @@ public class UserServiceImpl implements UserService {
                 User user1 = new User();
                 user1.setMobile(dto.getMobile());
                 user1.setPassword(dto.getPassword());
-                user1.setNickname("新用户");
-                user1.setAvatar("https://www.jianshu.com/u/822585e5c69a");
-                user1.setCreateTime(new Timestamp(System.currentTimeMillis()));
+                user1.setEmail(dto.getEmail());
+                user1.setBirthday(new Date(2000-01-15));
+                user1.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
                 userMapper.insertUser(user1);
             } catch (SQLException e) {
                 logger.error("新增用户出现异常");
@@ -61,23 +95,34 @@ public class UserServiceImpl implements UserService {
         return Result.success();
     }
 
+    /**
+     * 查询所有的用户
+     *
+     * @return
+     */
     @Override
     public Result selectAll(int id) {
-        UserVo userVo = new UserVo();
+        User user = new User();
         try {
-            userVo = userMapper.getUserById(id);
+            user = userMapper.getUserById(id);
         } catch (SQLException e) {
-            logger.error("查询用户个人动态异常");
+            logger.error("查询用户日志异常");
         }
-        if(userVo != null){
-            return Result.success(userVo);
+        if(user != null){
+            return Result.success(user);
         }
         return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
     }
 
+    /**
+     * 根据id查询用户
+     *
+     * @param id
+     * @return
+     */
     @Override
     public Result getUserById(int id) {
-        UserVo user = null;
+        User user = null;
         try {
             user = userMapper.getUserById(id);
         } catch (SQLException e) {
@@ -90,19 +135,37 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * 根据昵称模糊查询(成功)
+     *
+     * @return
+     */
     @Override
-    public Result getDynamicById(int id) {
-        UserVo userVo = new UserVo();
+    public List<User> findUserByNickName(String key_name) {
+        List<User> userlist = null;
+        System.out.println(key_name);
         try {
-           userVo = userMapper.getDynamicById(id);
+            userlist = userMapper.findUserByNickName(key_name);
         } catch (SQLException e) {
-            logger.error("用户动态查询异常");
+            e.printStackTrace();
         }
-        if(userVo != null){
-            return Result.success(userVo);
-        }
-        return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+        return userlist;
     }
 
-
+    /**
+     * 修改用户信息
+     *
+     * @param user
+     * @return
+     */
+    @Override
+    public int updateUser(User user) {
+        int n = 0;
+        try {
+            n=userMapper.updateUser(user);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return n;
+    }
 }
