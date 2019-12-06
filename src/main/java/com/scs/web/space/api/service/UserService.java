@@ -19,7 +19,7 @@ public interface UserService {
      * 用户登录功能
      * @return
      */
-    Result login(String mobile, String password);
+    Result login(UserDto userDto,String correctCode);
 
 
     /**
@@ -62,4 +62,5 @@ public interface UserService {
      */
       int updateUser(User user);
 
+      void updateById();
 }

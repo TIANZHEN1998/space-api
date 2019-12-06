@@ -60,7 +60,7 @@ public class SmsController {
         if (verifyCode.equals(number.getCode())) {
             System.out.println(number.getCode());
             System.out.println(number.getTime());
-            if (((System.currentTimeMillis() - number.getTime().getTime()) / 60) <= 5) {
+            if (((System.currentTimeMillis() - number.getTime().getTime())/(1000*60)) <= 5) {
                 return Result.success();
             } else {
                 return Result.failure(ResultCode.USER_VERIFY_CODE_ERROR);

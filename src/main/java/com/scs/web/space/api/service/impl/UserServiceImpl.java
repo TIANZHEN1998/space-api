@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import javax.security.auth.message.callback.PrivateKeyCallback;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -36,29 +37,32 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 登录（成功）
-     * @param mobile
-     * @param password
+     * @param userDto
+     * @param correctCode
      * @return
      */
     @Override
-    public Result login(String mobile, String password) {
-
-        User admin = null;
-        try {
-            admin = userMapper.findUserByMobile(mobile);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if (admin != null) {
-            if (DigestUtils.md5Hex(password).equals(admin.getPassword())) {
-                return Result.success(admin);
-
-            } else {  //记录存在，密码输入错误
-                return Result.failure(ResultCode.USER_PASSWORD_ERROR);
+    public Result login(UserDto userDto, String correctCode) {
+        if(userDto.getCode().equalsIgnoreCase(correctCode)) {
+            User admin = null;
+            System.out.println(correctCode);
+            try {
+                admin = userMapper.findUserByMobile(userDto.getMobile());
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } else {  //账号不存在
-            return Result.failure(ResultCode.USER_ACCOUNT_ERROR);
+            if (admin != null) {
+                if (DigestUtils.md5Hex(userDto.getPassword()).equals(admin.getPassword())) {
+                    return Result.success(admin);
+
+                } else {  //记录存在，密码输入错误
+                    return Result.failure(ResultCode.USER_PASSWORD_ERROR);
+                }
+            } else {  //账号不存在
+                return Result.failure(ResultCode.USER_ACCOUNT_ERROR);
+            }
         }
+        return Result.failure(ResultCode.USER_VERIFY_CODE_ERROR);
     }
 
     /**
@@ -129,6 +133,15 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
         return n;
+    }
+
+    @Override
+    public void updateById() {
+        try {
+            userMapper.jihuo(1,"1244353765@qq.com");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

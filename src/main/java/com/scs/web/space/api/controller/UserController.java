@@ -7,6 +7,12 @@ import com.scs.web.space.api.util.Result;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.http.HttpRequest;
 import java.util.List;
 
 /**
@@ -22,8 +28,16 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(value = "/login")
-    Result login(@RequestBody UserDto user){
-        return userService.login(user.getMobile(),user.getPassword());
+    public Result signIn(@RequestBody UserDto userDto, HttpServletRequest req,  HttpSession session) throws IOException {
+        String inputCode = userDto.getCode().trim();
+        /*String sessionId = req.getHeader("Access-Token");
+        System.out.println("客户端传来的JSESSIONID: "+ sessionId);*/
+        System.out.println(userDto);
+        String correcteCode = session.getAttribute("code").toString();
+        System.out.println("正确的验证码：" +correcteCode);
+        Result rs = userService.login(userDto, correcteCode);
+        return Result.success(rs);
+
     }
 
     @PostMapping(value = "/sign-up")

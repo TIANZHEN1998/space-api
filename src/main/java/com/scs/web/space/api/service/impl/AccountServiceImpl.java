@@ -4,7 +4,9 @@ import com.scs.web.space.api.domain.entity.Account;
 import com.scs.web.space.api.domain.entity.Friend;
 import com.scs.web.space.api.mapper.AccountMapper;
 import com.scs.web.space.api.mapper.FriendMapper;
+import com.scs.web.space.api.mapper.UserMapper;
 import com.scs.web.space.api.service.AccountService;
+import com.scs.web.space.api.util.Mail163Test;
 import com.scs.web.space.api.util.Result;
 import com.scs.web.space.api.util.ResultCode;
 import org.slf4j.Logger;
@@ -28,7 +30,7 @@ import java.util.Map;
 public class AccountServiceImpl implements AccountService {
     @Resource
     private AccountMapper accountMapper;
-    private FriendMapper friendMapper;
+    private UserMapper userMapper;
     private Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
 
     @Override
@@ -48,6 +50,16 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List list() {
         return null;
+    }
+
+    @Override
+    public void ActivationMobile(String email) {
+        try {
+            Mail163Test.Email(email);
+            userMapper.jihuo(1,email);
+        } catch (Exception e) {
+            logger.error("邮箱发送异常");
+        }
     }
 
 

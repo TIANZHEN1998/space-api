@@ -8,4 +8,7 @@ public interface AccountService {
     Result getUserAccounts(int id);
 
     List list() ;
+
+    void ActivationMobile(String email);
+
 }
