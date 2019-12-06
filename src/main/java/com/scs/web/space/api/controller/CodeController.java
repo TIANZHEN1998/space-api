@@ -38,4 +38,24 @@ public class CodeController {
      * @param response
      * @throws IOException
      */
+
+    @RequestMapping(value="/getImage",method=RequestMethod.GET)
+    public void CodeController (HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String verifyCode = VerifyUtil.generateVerifyCode(6);
+        System.out.println("验证码："+ verifyCode);
+        HttpSession session = request.getSession(true);
+        session.setAttribute("code", verifyCode);
+        response.setHeader("Access-Token", session.getId());
+        response.setContentType("image/jpeg");
+        /*session.removeAttribute("verCode");
+        session.removeAttribute("codeTime");
+        session.setAttribute("verCode", verifyCode.toLowerCase());
+        session.setAttribute("codeTime", LocalDateTime.now());*/
+        int w = 100, h = 30;
+        ServletOutputStream out = response.getOutputStream();
+        VerifyUtil.outputImage(w, h, out, verifyCode);
+
+    }
+
+
 }
