@@ -30,6 +30,11 @@ public interface UserService {
      */
     Result signUp(User dto);
 
+    /**
+     * 根据昵称模糊查询
+     * @return
+     */
+    List<User> findUserByNickName(String key_name);
 
     /**
      * 查询所有用户
@@ -48,11 +53,7 @@ public interface UserService {
      */
     Result getUserById(int id);
 
-    /**
-     * 根据昵称模糊查询
-     * @return
-     */
-    List<User> findUserByNickName(String key_name);
+    Result getDynamicById(int id);
 
     /**
      * 修改用户信息

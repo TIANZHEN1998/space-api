@@ -44,7 +44,7 @@ public interface NotesMapper {
     List<Map> getByUserId(int userId,int currentPage, int pageSize) throws SQLException;
 
 
-   /* @ResultMap("notes")*/
+    /* @ResultMap("notes")*/
     /**
      * 查询日志详情(用信息，评论内容及评论人信息)
      * @param

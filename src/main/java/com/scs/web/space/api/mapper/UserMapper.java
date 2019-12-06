@@ -2,6 +2,7 @@ package com.scs.web.space.api.mapper;
 
 import com.scs.web.space.api.domain.dto.UserDto;
 import com.scs.web.space.api.domain.entity.User;
+import com.scs.web.space.api.domain.vo.UserVo;
 import org.apache.ibatis.annotations.*;
 import java.sql.SQLException;
 import java.util.List;
@@ -52,17 +53,6 @@ public interface UserMapper {
      * @throws SQLException
      */
 
-    @Select("SELECT * FROM t_user WHERE id = #{id} ")
-    User getUserById(@Param("id")int id)throws SQLException;
-
-    /**
-     * 查询用户表所有用户
-     * @return
-     * @throws SQLException
-     */
-    @Select("SELECT * FROM t_user ")
-    List<User> selectAll() throws SQLException;
-
     /**
      * 根据昵称模糊查询
      * @return
@@ -73,6 +63,44 @@ public interface UserMapper {
     List<User> findUserByNickName(@Param("nickname") String nickname) throws  SQLException;
 
 
+    @Select("SELECT * FROM t_user WHERE id = #{id} ")
+    UserVo getUserById(@Param("id")int id)throws SQLException;
+
+    /**
+     * 查询用户表所有日志和   相册（好友动态）
+     *
+     * @return
+     * @throws SQLException
+     */
+    @Select("SELECT * FROM t_user WHERE id = #{id} ")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "albumVo", column = "id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.AlbumMapper.getAlbumByUserId")),
+            @Result(property = "notesVo", column = "id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.NotesMapper.getNotesCommentById"))
+    })
+    UserVo getDynamicById(@Param("id") int id) throws SQLException;
+
+
+
+    @Select("SELECT * FROM t_user WHERE id = #{id} ")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "albumVo", column = "id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.AlbumMapper.getAlbumByUserId")),
+            @Result(property = "notesVo", column = "id",
+                    many = @Many(select = "com.scs.web.space.api.mapper.NotesMapper.getFriendCommentById"))
+    })
+    UserVo getFriendDynamicById(@Param("id") int id) throws SQLException;
+    /**
+     * 与评论表进行联查
+     * @param id
+     * @return
+     * @throws SQLException
+     */
+    @Select("SELECT * FROM t_user WHERE id = #{userId}")
+    List<User> getById(@Param("userId") int id) throws SQLException;
     /***
      * 修改用户信息（头像、昵称、简介、地址）
      * @param user
@@ -82,5 +110,5 @@ public interface UserMapper {
     @Update("update t_user set nickname=#{nickname} ,avatar=#{avatar},introduction=#{introduction},address=#{address}" +
             " where " +
             "id=#{id}")
-        int updateUser(User user) throws  SQLException;
+    int updateUser(User user) throws  SQLException;
 }

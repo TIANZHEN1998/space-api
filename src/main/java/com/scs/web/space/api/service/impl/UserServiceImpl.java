@@ -1,6 +1,7 @@
 package com.scs.web.space.api.service.impl;
 import com.scs.web.space.api.domain.dto.UserDto;
 import com.scs.web.space.api.domain.entity.User;
+import com.scs.web.space.api.domain.vo.UserVo;
 import com.scs.web.space.api.mapper.UserMapper;
 import com.scs.web.space.api.service.UserService;
 import com.scs.web.space.api.util.Result;
@@ -95,45 +96,6 @@ public class UserServiceImpl implements UserService {
         return Result.success();
     }
 
-    /**
-     * 查询所有的用户
-     *
-     * @return
-     */
-    @Override
-    public Result selectAll(int id) {
-        User user = new User();
-        try {
-            user = userMapper.getUserById(id);
-        } catch (SQLException e) {
-            logger.error("查询用户日志异常");
-        }
-        if(user != null){
-            return Result.success(user);
-        }
-        return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
-    }
-
-    /**
-     * 根据id查询用户
-     *
-     * @param id
-     * @return
-     */
-    @Override
-    public Result getUserById(int id) {
-        User user = null;
-        try {
-            user = userMapper.getUserById(id);
-        } catch (SQLException e) {
-            logger.error("查询所有用户出现异常");
-        }
-        if (user != null) {
-            return Result.success(user);
-        } else {
-            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
-        }
-    }
 
     /**
      * 根据昵称模糊查询(成功)
@@ -168,4 +130,48 @@ public class UserServiceImpl implements UserService {
         }
         return n;
     }
+
+    @Override
+    public Result selectAll(int id) {
+        UserVo userVo = new UserVo();
+        try {
+            userVo = userMapper.getUserById(id);
+        } catch (SQLException e) {
+            logger.error("查询用户个人动态异常");
+        }
+        if(userVo != null){
+            return Result.success(userVo);
+        }
+        return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+    }
+
+    @Override
+    public Result getUserById(int id) {
+        UserVo user = null;
+        try {
+            user = userMapper.getUserById(id);
+        } catch (SQLException e) {
+            logger.error("查询所有用户出现异常");
+        }
+        if (user != null) {
+            return Result.success(user);
+        } else {
+            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+        }
+    }
+
+    @Override
+    public Result getDynamicById(int id) {
+        UserVo userVo = new UserVo();
+        try {
+            userVo = userMapper.getDynamicById(id);
+        } catch (SQLException e) {
+            logger.error("用户动态查询异常");
+        }
+        if(userVo != null){
+            return Result.success(userVo);
+        }
+        return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+    }
+
 }
