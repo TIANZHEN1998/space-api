@@ -44,6 +44,7 @@ public interface UserMapper {
      * @date 2019.12.1
      */
     @Select("SELECT * FROM t_user WHERE mobile = #{mobile}")
+
     User findUserByMobile(String mobile) throws SQLException;
 
     /**
@@ -111,4 +112,7 @@ public interface UserMapper {
             " where " +
             "id=#{id}")
     int updateUser(User user) throws  SQLException;
+
+    @Update("update t_user set status = #{status} WHERE email = #{email}")
+    int jihuo(int status ,String email) throws  SQLException;
 }

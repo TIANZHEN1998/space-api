@@ -12,4 +12,5 @@ import lombok.Data;
 public class UserDto {
     private String mobile;
     private String password;
+    private String code;
 }
