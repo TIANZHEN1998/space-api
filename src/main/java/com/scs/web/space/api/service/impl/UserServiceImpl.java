@@ -132,6 +132,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Result findUserByMobile(String mobile) {
+        User user=null;
+        try {
+            user=userMapper.findUserByMobile(mobile);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Result.success(user);
+    }
+
+    @Override
     public Result selectAll(int id) {
         UserVo userVo = new UserVo();
         try {

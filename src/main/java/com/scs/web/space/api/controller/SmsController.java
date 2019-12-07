@@ -24,7 +24,7 @@ public class SmsController {
     @Resource
     private RedisService redisService;
     @Resource
-    private  UserMapper userMapper;
+ private UserMapper userMapper;
     private String phone;
     String verifyCode;
     /**
@@ -36,7 +36,7 @@ public class SmsController {
     public Result getVerifyCode(@RequestParam(value = "mobile") String mobile) throws SQLException {
 
             if (userMapper.findUserByMobile(mobile) != null) {
-                return Result.failure(ResultCode.USER_NOT_EXIST);
+                return Result.failure(ResultCode.USER_HAS_EXISTED);
             } else {
                 //发送验证码
                 verifyCode = SmsUtil.send(mobile);
@@ -57,13 +57,14 @@ public class SmsController {
     @PostMapping(value = "/checkcode")
     public Result checkVerifyCode(@RequestParam("mobile") String mobile, @RequestParam("verifyCode") String verifyCode) {
         VerifyNumber number = redisService.getValue(mobile, VerifyNumber.class);
-        if (verifyCode.equals(number.getCode())) {
-            System.out.println(number.getCode());
-            System.out.println(number.getTime());
-            if (((System.currentTimeMillis() - number.getTime().getTime()) / 60) <= 5) {
+
+        //从redis中先取出code，和verifyCode比较
+        if (number.getCode().equals(verifyCode)) {
+            if (((System.currentTimeMillis() - number.getTime().getTime()) /(1000*60)) <= 5) {
+
                 return Result.success();
             } else {
-                return Result.failure(ResultCode.USER_VERIFY_CODE_ERROR);
+                return Result.failure(ResultCode.USER_VERIFY_OVERDUE);
             }
         } else {
             return Result.failure(ResultCode.USER_VERIFY_CODE_ERROR);

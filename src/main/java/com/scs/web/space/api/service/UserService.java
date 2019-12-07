@@ -62,4 +62,12 @@ public interface UserService {
      */
       int updateUser(User user);
 
+    /**
+     * 根据手机号查看是否存在此用户
+     * @param mobile
+     * @return
+     */
+
+    Result findUserByMobile(String mobile);
+
 }
