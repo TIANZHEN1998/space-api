@@ -1,18 +1,18 @@
 package com.scs.web.space.api.controller;
-
 import com.scs.web.space.api.domain.dto.UserDto;
+import com.scs.web.space.api.domain.entity.CorrectCode;
 import com.scs.web.space.api.domain.entity.User;
+import com.scs.web.space.api.service.RedisService;
 import com.scs.web.space.api.service.UserService;
 import com.scs.web.space.api.util.Result;
+import com.scs.web.space.api.util.ResultCode;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.http.HttpRequest;
 import java.util.List;
 
 /**
@@ -26,22 +26,39 @@ import java.util.List;
 public class UserController {
     @Resource
     private UserService userService;
+    @Resource
+    private RedisService redisService;
 
+    /***
+     * 登录
+     * @param userDto
+     * @param verifyCode
+     * @param mobile
+     * @return
+     * @throws IOException
+     */
     @PostMapping(value = "/login")
-    public Result signIn(@RequestBody UserDto userDto, HttpServletRequest req,  HttpSession session) throws IOException {
-        String inputCode = userDto.getCode().trim();
-        /*String sessionId = req.getHeader("Access-Token");
-        System.out.println("客户端传来的JSESSIONID: "+ sessionId);*/
-        System.out.println(userDto);
-        String correcteCode = session.getAttribute("code").toString();
-        System.out.println("正确的验证码：" +correcteCode);
-        Result rs = userService.login(userDto, correcteCode);
-        return Result.success(rs);
+    public Result signIn(@RequestBody UserDto userDto,@RequestParam("verifyCode") String verifyCode,
+                         @RequestParam("mobile") String mobile) throws IOException {
+        CorrectCode correctCode = redisService.getValue(mobile, CorrectCode.class);
+        if (correctCode.getCorrectCode().equals(verifyCode)){
+            System.out.println(correctCode.getCorrectCode());
+            return Result.success();
+        }
+        return  Result.failure(ResultCode.USER_VERIFY_CODE_ERROR);
 
     }
 
-    @PostMapping(value = "/sign-up")
+
+
+    /**
+     * 注册
+     * @param userDto
+     * @return
+     */
+        @PostMapping(value = "/sign-up")
     Result signUp(@RequestBody User userDto) {
+
         //客户端发送JSON参数，后端使用@RequstBody接收,注意要用Post方法
         return userService.signUp(userDto);
     }
@@ -52,29 +69,38 @@ public class UserController {
      * @return
      */
     @GetMapping(value = "/list")
-    Result getAll(@PathVariable int id) {
+    Result getAll(@PathVariable  int id) {
         return userService.selectAll(id);
     }
 
     /**
      *根据Id查询用户
-     * @param id
+     * @param id（成功）
      * @return
      */
     @GetMapping(value = "/{id}")
-    public Result getUserById(@PathVariable int id){
+    public Result getUserById(@PathVariable("id")  @Valid int id){
         return userService.getUserById(id);
     }
 
     /**
-     * 模糊查询
-     * @param
+     * 根据手机号查询用户的所有信息
+     * @param mobile(成功)
+     * @return
+     */
+    @GetMapping(value = "/findUserByMobile/{mobile}")
+    Result findUserByMobile(@PathVariable("mobile") @Valid  String mobile){
+        return  userService.getUserByMobile(mobile);
+    }
+    /**
+     * 根据昵称模糊查询
+     * @param(成功)
      * @return
      */
 
-    @PostMapping(value = "/findUserByNickName")
-    List<User> findUserByNickName(@RequestBody User user){
-        return  userService.findUserByNickName(user.getNickname());
+    @PostMapping(value = "/findUserByNickName/{key_name}")
+    List<User> findUserByNickName(@PathVariable("key_name") @Valid String key_name){
+        return  userService.findUserByNickName(key_name);
     }
 
     /**

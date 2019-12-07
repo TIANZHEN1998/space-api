@@ -8,41 +8,20 @@ package com.scs.web.space.api.service;
  **/
 public interface RedisService {
     /**
-
      * 添加 Redis术语中 string 类型的数据
-
-     *
-
      * @param key
-
      * @param value
-
      * @return
-
      */
-
     public boolean set(final String key, Object value);
-
-
-
-    /**
-
-     * 添加 Redis术语中 string 类型的数据,并设置超时
-
+    /*** 添加 Redis术语中 string 类型的数据,并设置超时
      *
-
-     * @param key
-
      * @param value
-
      * @param expireTime
-
      * @return
-
      */
 
     public boolean set(final String key, Object value, Long expireTime);
-
 
 
     /**
@@ -56,16 +35,10 @@ public interface RedisService {
      * @return
 
      */
-
     public boolean existsKey(final String key);
-
-
-
     /**
-
      * 根据( Redis 术语中 string 类型的) key 获取值,如果出现异常则返回null
 
-     *
 
      * @param key
 
@@ -91,12 +64,7 @@ public interface RedisService {
 
      */
 
-
-
     public void removeKey(final String key);
-
-
-
     /**
 
      * 批量删除对应的value
@@ -108,10 +76,7 @@ public interface RedisService {
      */
 
 
-
     public void remove(final String... keys);
-
-
 
     /**
 

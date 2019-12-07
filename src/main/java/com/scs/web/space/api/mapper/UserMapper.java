@@ -25,7 +25,7 @@ public interface UserMapper {
 
 
     /**
-     * 新增用户
+     * 注册用户
      * @param user
      * @throws SQLException
      * @author
@@ -44,15 +44,8 @@ public interface UserMapper {
      * @date 2019.12.1
      */
     @Select("SELECT * FROM t_user WHERE mobile = #{mobile}")
+    User findUserByMobile(@Param("mobile") String mobile) throws SQLException;
 
-    User findUserByMobile(String mobile) throws SQLException;
-
-    /**
-     * 根据id查询用户信息，通过一对多查询，级联查出该用户所有日志
-     * @param id
-     * @return
-     * @throws SQLException
-     */
 
     /**
      * 根据昵称模糊查询
@@ -64,6 +57,12 @@ public interface UserMapper {
     List<User> findUserByNickName(@Param("nickname") String nickname) throws  SQLException;
 
 
+    /**
+     * 根据id查找用户
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     @Select("SELECT * FROM t_user WHERE id = #{id} ")
     UserVo getUserById(@Param("id")int id)throws SQLException;
 
@@ -102,6 +101,7 @@ public interface UserMapper {
      */
     @Select("SELECT * FROM t_user WHERE id = #{userId}")
     List<User> getById(@Param("userId") int id) throws SQLException;
+
     /***
      * 修改用户信息（头像、昵称、简介、地址）
      * @param user
@@ -113,6 +113,14 @@ public interface UserMapper {
             "id=#{id}")
     int updateUser(User user) throws  SQLException;
 
+
+    /***
+     * 激活用户
+     * @param status
+     * @param email
+     * @return
+     * @throws SQLException
+     */
     @Update("update t_user set status = #{status} WHERE email = #{email}")
     int jihuo(int status ,String email) throws  SQLException;
 }

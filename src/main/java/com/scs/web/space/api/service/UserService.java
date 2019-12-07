@@ -19,7 +19,7 @@ public interface UserService {
      * 用户登录功能
      * @return
      */
-    Result login(String mobile, String password);
+    Result login(UserDto userDto, String correctCode);
 
 
     /**
@@ -52,6 +52,13 @@ public interface UserService {
      * @return Result
      */
     Result getUserById(int id);
+
+    /***
+     * 根据手机号查询用户的全部信息
+     * @param mobile
+     * @return
+     */
+    Result getUserByMobile(String mobile);
 
     Result getDynamicById(int id);
 

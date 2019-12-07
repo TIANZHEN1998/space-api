@@ -1,12 +1,17 @@
 package com.scs.web.space.api.controller;
 
+import com.scs.web.space.api.domain.entity.CorrectCode;
+import com.scs.web.space.api.service.RedisService;
 import com.scs.web.space.api.util.Result;
 import com.scs.web.space.api.util.ResultCode;
 import com.scs.web.space.api.util.VerifyUtil;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +32,8 @@ import java.time.ZoneId;
 @RestController
 @RequestMapping(value = "/api/code")
 public class CodeController {
+    @Resource
+    private RedisService redisService;
     private static final long serialVersionUID = 3398560501558431737L;
     @RequestMapping(value="/authImage",method= RequestMethod.GET)
     public String authImage() {
@@ -38,24 +45,18 @@ public class CodeController {
      * @param response
      * @throws IOException
      */
-
     @RequestMapping(value="/getImage",method=RequestMethod.GET)
-    public void CodeController (HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void CodeController (@RequestParam(value = "mobile") String mobile, HttpServletRequest request,
+                                HttpServletResponse response) throws IOException {
         String verifyCode = VerifyUtil.generateVerifyCode(6);
         System.out.println("验证码："+ verifyCode);
         HttpSession session = request.getSession(true);
-        session.setAttribute("code", verifyCode);
         response.setHeader("Access-Token", session.getId());
         response.setContentType("image/jpeg");
-        /*session.removeAttribute("verCode");
-        session.removeAttribute("codeTime");
-        session.setAttribute("verCode", verifyCode.toLowerCase());
-        session.setAttribute("codeTime", LocalDateTime.now());*/
+        CorrectCode correct=new CorrectCode(mobile,verifyCode);
+        redisService.set(mobile,correct);
         int w = 100, h = 30;
         ServletOutputStream out = response.getOutputStream();
         VerifyUtil.outputImage(w, h, out, verifyCode);
-
     }
-
-
 }

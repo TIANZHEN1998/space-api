@@ -36,30 +36,34 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 登录（成功）
-     * @param mobile
-     * @param password
+     * @param
+     * @param
      * @return
      */
     @Override
-    public Result login(String mobile, String password) {
-
-        User admin = null;
-        try {
-            admin = userMapper.findUserByMobile(mobile);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if (admin != null) {
-            if (DigestUtils.md5Hex(password).equals(admin.getPassword())) {
-                return Result.success(admin);
-
-            } else {  //记录存在，密码输入错误
-                return Result.failure(ResultCode.USER_PASSWORD_ERROR);
+    public Result login(UserDto userDto, String correctCode) {
+        if(userDto.getCode().equalsIgnoreCase(correctCode)) {
+            User admin = null;
+            System.out.println(correctCode);
+            try {
+                admin = userMapper.findUserByMobile(userDto.getMobile());
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } else {  //账号不存在
-            return Result.failure(ResultCode.USER_ACCOUNT_ERROR);
+            if (admin != null) {
+                if (DigestUtils.md5Hex(userDto.getPassword()).equals(admin.getPassword())) {
+                    return Result.success(admin);
+
+                } else {  //记录存在，密码输入错误
+                    return Result.failure(ResultCode.USER_PASSWORD_ERROR);
+                }
+            } else {  //账号不存在
+                return Result.failure(ResultCode.USER_ACCOUNT_ERROR);
+            }
         }
+        return Result.failure(ResultCode.USER_VERIFY_CODE_ERROR);
     }
+
 
     /**
      * 注册
@@ -134,12 +138,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result findUserByMobile(String mobile) {
         User user=null;
-        try {
+        try{
             user=userMapper.findUserByMobile(mobile);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据手机号查询用户的所有信息出现异常");
+        }      if (user != null) {
+            return Result.success(user);
+        } else {
+            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
         }
-        return Result.success(user);
     }
 
     @Override
@@ -156,6 +163,12 @@ public class UserServiceImpl implements UserService {
         return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
     }
 
+    /**
+     * 根据用户id查询用户信息
+     * @param id
+     * @return
+     */
+
     @Override
     public Result getUserById(int id) {
         UserVo user = null;
@@ -169,6 +182,25 @@ public class UserServiceImpl implements UserService {
         } else {
             return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
         }
+    }
+
+    /***
+     * 根据手机号查询用户的所有信息
+     * @param mobile
+     * @return
+     */
+    @Override
+    public Result getUserByMobile(String mobile) {
+        User user=null;
+        try{
+            user=userMapper.findUserByMobile(mobile);
+        } catch (SQLException e) {
+            logger.error("根据手机号查询用户的所有信息出现异常");
+        }      if (user != null) {
+                return Result.success(user);
+            } else {
+                return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+            }
     }
 
     @Override
